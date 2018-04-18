@@ -1,5 +1,4 @@
 package entities;
-
 public class PTEntry {
 	
 	
