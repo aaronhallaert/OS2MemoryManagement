@@ -20,7 +20,7 @@ import entities.Proces;
 
 public class DataProcessing {
 	//xml file analyseren en instructies eruit halen
-			public void findInstructies(String pad, ArrayList<Instructie> instructies, ArrayList<Proces> processen) {
+			public static void findInstructies(String pad, ArrayList<Instructie> instructies, ArrayList<Proces> processen) {
 
 			try {
 				Set<Integer> procesNumbers= new HashSet<>();
