@@ -28,7 +28,7 @@ public class MemoryController {
 	public static VirtueelGeheugen virtueelGeheugen= new VirtueelGeheugen();
 	
 	//per uitgevoerde instructie wordt de klok met 1 opgehoogd
-	static int klok = 0;
+	public static int klok = 0;
 	 
 	
 	
@@ -53,33 +53,18 @@ public class MemoryController {
 			Instructie iTemp;
 		
 			iTemp= instructies.pollFirst();
+			iTemp.execute();
 			
-			//inlezen van de instructie
-			int processId = iTemp.getPid();
-			String operation = iTemp.getOperatie();
-			int vmAdres   = iTemp.getVirtueelAdres();
 			
-			int aantalProcessenInRam;
 			
 			//effectieve uitvoeren van de instructie
-			switch(operation) {
-			case "Read" :	System.out.println("read");
-							break;
-				
-			case "Write":	System.out.println("write");
-							break;
-				
-			case "Terminate":System.out.println("terminate");
-							break;
-				
-			case "Start":	System.out.println("start");
+			/*case "Start":	System.out.println("start");
 			
 							aantalProcessenInRam = ram.getAantalProcessenAanwezig();
 							switch(aantalProcessenInRam) {
 							
 							case 0:	//0 processen aanwezig in het RAM
-									processen.get(processId).nulNaarTwaalf();
-									ram.nulNaarTwaalf(processId);
+									geefTwaalfPagesAanProces(ram, processen, proces);
 									//voor de andere cases moet er hier nog info worden overgedragen
 									//alloceer alle 12 frames aan het huidige process
 									
@@ -125,7 +110,7 @@ public class MemoryController {
 				
 			}
 			
-			
+			*/
 			
 			
 			
@@ -169,8 +154,21 @@ public class MemoryController {
 			klok++;
 			System.out.println("klok = "+klok);
 		}
-		
+
+	//niet zeker als dit werkt, het schijnt wel beter / gezonder te zijn
+	/*public RAM getRam() {
+		return ram;
 	}
+	
+	
+	public VirtueelGeheugen getVM() {
+		return virtueelGeheugen;
+	}*/
+	
+	
+	}
+
+
 	
 	
 
