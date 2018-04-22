@@ -8,6 +8,7 @@ import java.util.Map;
 import entities.Instructie;
 import entities.Proces;
 import entities.RAM;
+import entities.VirtueelGeheugen;
 import io.DataProcessing;
 
 /**
@@ -23,6 +24,8 @@ public class MemoryController {
 	public static Map<Integer, Proces> processen=new HashMap<Integer, Proces>();
 	
 	public static RAM ram=new RAM();
+	
+	public static VirtueelGeheugen virtueelGeheugen= new VirtueelGeheugen();
 	
 	
 	// virtual memory definieren

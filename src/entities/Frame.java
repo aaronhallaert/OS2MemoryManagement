@@ -20,7 +20,7 @@ public class Frame {
 	int framenummer;
 	private static final int grootte = 4096; //niet zeker als dit gaat nodig zijn
 	
-	
+	// voorbeeld
 	// virtueel adres: 0001 000000000001
 	// page 1
 	// offset 1
@@ -28,6 +28,7 @@ public class Frame {
 	// PTEntry 1: 0010 000000000001
 	// => in ram frame nummer 2
 	// => offset is 1
+	
 	
 	// Integer is plaats in frame (offset in adres)
 	//1e integer is het zoveelste geheugenplaats van het frame
