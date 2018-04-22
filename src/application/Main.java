@@ -10,7 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * start applicatie, set view
+ * @author aaron
+ *
+ */
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {

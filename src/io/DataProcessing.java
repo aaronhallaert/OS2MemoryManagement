@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,7 +21,7 @@ import entities.Proces;
 
 public class DataProcessing {
 	//xml file analyseren en instructies eruit halen
-			public static void findInstructies(String pad, ArrayList<Instructie> instructies, ArrayList<Proces> processen) {
+			public static void findInstructies(String pad, Stack<Instructie> instructies, ArrayList<Proces> processen) {
 
 			try {
 				Set<Integer> procesNumbers= new HashSet<>();

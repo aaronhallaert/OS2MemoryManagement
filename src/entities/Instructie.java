@@ -38,7 +38,13 @@ public class Instructie {
 		return "Instructie [pid=" + pid + ", operatie=" + operatie + ", virtueelAdres=" + virtueelAdres + "]";
 	}
 	
-	
+	public void execute() {
+		String operatie=this.getOperatie();
+		int pid= this.getPid();
+		int virtueelAdres= this.getVirtueelAdres();
+		
+		System.out.println("execute: "+ this.toString());
+	}
 	
 	
 	
