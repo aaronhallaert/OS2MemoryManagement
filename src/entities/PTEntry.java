@@ -3,9 +3,11 @@ public class PTEntry {
 	
 	
     private int pageNr;
-    private boolean present;
-    private boolean modified;
-    private int laatsteKeerGebruikt;
+    private boolean present; //false = in vm , true = in RAM
+    private boolean modified; 	// aangepast in RAM
+    							// true --> moet gekopieerd worden naar VM als de page naar VM moet
+    							// false --> moeten we niet wegschrijven naar VM
+    private int laatsteKeerGebruikt; // klok wanneer laatst gebruikt
     private int frameNr;
 	
 	

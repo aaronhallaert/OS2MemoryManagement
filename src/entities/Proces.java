@@ -19,11 +19,22 @@ public class Proces {
 	}
 	
 	
+	public Proces(int pid) {
+		pageTable = new ArrayList<PTEntry>(16);
+		this.pid=pid;
+	}
+	
+	
+	
+	
+	// gebruiken we niet
 	public Proces(List<PTEntry> pageTable, int pid) {
-		//super(); //wat doet die super hier?
-		this.pageTable = new ArrayList<PTEntry>(16);
+		this.pageTable = pageTable;
 		this.pid = pid;
 	}
+	
+	
+	
 	
 	// getters en setters
 	public List<PTEntry> getPageTable() {

@@ -54,7 +54,7 @@ public class DataProcessing {
 				
 				// alle processen aanmaken met een pagetable
 				for(int procesNumber: procesNumbers) {
-					processen.put(procesNumber, new Proces(new ArrayList<PTEntry>(16),procesNumber));
+					processen.put(procesNumber, new Proces(procesNumber));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

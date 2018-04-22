@@ -18,7 +18,6 @@ public class VirtueelGeheugen {
 		}
 	}
 	
-	//we kozen om geen frames te maken in het vm
-	// als we een frame van het virtueel geheugen terug naar het ram moeten laden, kunnen we
+	
 	
 }
