@@ -1,4 +1,4 @@
-package logica;
+package entities;
 
 public class VirtueelGeheugen {
 
