@@ -31,6 +31,12 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		
+		//lanceert het inladen van de data
 		launch(args);
+		
+		
+		
+		
 	}
 }

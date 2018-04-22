@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Proces {
@@ -8,9 +9,16 @@ public class Proces {
 	private int pid;
 	
 	// constructoren
+	
+	/**
+	 * de pagetable kan maximaal 16 entries bevatten
+	 * pid ? nog toe te voegen
+	 */
 	public Proces() {
-		
+		pageTable = new ArrayList<PTEntry>(16);
 	}
+	
+	
 	public Proces(List<PTEntry> pageTable, int pid) {
 		super();
 		this.pageTable = pageTable;

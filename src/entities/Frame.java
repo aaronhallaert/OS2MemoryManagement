@@ -13,11 +13,19 @@ public class Frame {
 
 	private boolean bevatPage;
 	private Page huidigePage;
-	private static final int grootte = 4096;
+	int framenummer;
 	
+	private static final int grootte = 4096; //niet zeker als dit gaat nodig zijn
+	
+	
+	//frame wordt leeg aangemaakt
 	public Frame() {
-		
-		
+		bevatPage = false;
+		huidigePage = null;
+	}
+	
+	public void setFrameNummer(int nummer){
+		this.framenummer=nummer;
 	}
 	
 	
