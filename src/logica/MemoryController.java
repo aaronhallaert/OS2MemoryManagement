@@ -23,6 +23,7 @@ public class MemoryController {
 		System.out.println(i.toString());
 	}
 	
+	//instructies en processen overlopen?
 	
 	
 	}

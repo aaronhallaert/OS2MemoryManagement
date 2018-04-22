@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
+	
+	//alles temaken met de fxml
 	@Override
 	public void start(Stage primaryStage) {
 		try {

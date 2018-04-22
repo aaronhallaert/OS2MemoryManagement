@@ -39,10 +39,7 @@ public class RAM {
 			//frame toevoegen aan ram
 			ram.add(f);
 			
-		}
-		
-
-		
+		}	
 	}
 	
 	
