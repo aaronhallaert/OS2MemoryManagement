@@ -78,6 +78,12 @@ public class MemoryController {
 		//klok 1 omhoog
 		klok++;
 	}
+
+	public static void voerVolgendeInstructieUit() {
+		instructies.pop().execute();
+	}
+	
+	
 	
 	}
 }

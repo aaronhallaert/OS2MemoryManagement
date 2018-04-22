@@ -23,10 +23,10 @@ public class HoofdMenuController {
 	
 	@FXML
 	public void setButtonLees(ActionEvent e) {
-		
-			MemoryController.instantiate();
-		
-		
+			MemoryController.inlezenInstructies();
+			MemoryController.voerVolgendeInstructieUit();
 	}
+	
+	
 	
 }
