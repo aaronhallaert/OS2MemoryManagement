@@ -15,7 +15,6 @@ public class Page {
 		for(int i=0; i< grootte; i++) {
 			geheugenPlaatsen.put(i, -1);
 		}
-		
 	}
 	
 }

@@ -24,6 +24,7 @@ public class RAM {
 	//toestandsvariabelen van het ram (om eenvoudig te beredeneren)
 	private int aantalProcessenAanwezig; // maximum 4
 	
+	//welke processen aanwezig? de ids bijhouden?
 	
 	public RAM() {
 		
@@ -51,11 +52,6 @@ public class RAM {
 	public void setAantalProcessenAanwezig(int aantalProcessenAanwezig) {
 		this.aantalProcessenAanwezig = aantalProcessenAanwezig;
 	}
-	
-	
-	
-	
-	
 	
 	
 	

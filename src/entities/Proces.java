@@ -50,5 +50,4 @@ public class Proces {
 		this.pid = pid;
 	}
 	
-	
 }
