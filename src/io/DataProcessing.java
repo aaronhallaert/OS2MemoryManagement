@@ -59,6 +59,7 @@ public class DataProcessing {
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("exception: dataprocessing.java lijn 60");
+				System.out.println("hoogst waarschijnlijk omdat het pad niet aangepast is: memorycontroller lijn 45");
 			}
 		}
 }
