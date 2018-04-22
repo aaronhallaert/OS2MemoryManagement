@@ -14,7 +14,6 @@ public class Frame {
 	private boolean bevatPage;
 	private Page huidigePage;
 	int framenummer;
-	
 	private static final int grootte = 4096; //niet zeker als dit gaat nodig zijn
 	
 	

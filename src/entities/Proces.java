@@ -25,8 +25,6 @@ public class Proces {
 		this.pid = pid;
 	}
 	
-	
-
 	// getters en setters
 	public List<PTEntry> getPageTable() {
 		return pageTable;
