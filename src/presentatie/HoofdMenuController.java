@@ -23,8 +23,10 @@ public class HoofdMenuController {
 	
 	@FXML
 	public void setButtonLees(ActionEvent e) {
-			MemoryController.inlezenInstructies();
 			MemoryController.voerVolgendeInstructieUit();
+			//als we hier de methode om de volgende instructie uit te
+			//zou het telkens de 1e instructie zijn die wordt uitgevoerd
+			
 	}
 	
 	

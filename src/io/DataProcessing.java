@@ -3,6 +3,7 @@ package io;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -21,7 +22,7 @@ import entities.Proces;
 
 public class DataProcessing {
 	//xml file analyseren en instructies eruit halen
-			public static void findInstructies(String pad, Stack<Instructie> instructies, ArrayList<Proces> processen) {
+			public static void findInstructies(String pad, LinkedList<Instructie> instructies, ArrayList<Proces> processen) {
 
 			try {
 				Set<Integer> procesNumbers= new HashSet<>();
@@ -33,7 +34,7 @@ public class DataProcessing {
 
 				// oplijsten van alle processen
 				NodeList instructieList = doc.getElementsByTagName("instruction");
-
+				
 				for (int i = 0; i < instructieList.getLength(); i++) {
 					// System.out.print(i+")");
 					Node nNode = instructieList.item(i);
@@ -44,7 +45,7 @@ public class DataProcessing {
 						String operatie = eElement.getElementsByTagName("operation").item(0).getTextContent();
 						int adres = Integer
 								.parseInt(eElement.getElementsByTagName("address").item(0).getTextContent());
-						instructies.add(new Instructie(PID,operatie, adres));
+						instructies.addLast(new Instructie(PID,operatie, adres));
 						procesNumbers.add(PID);
 					}
 				}
@@ -56,6 +57,7 @@ public class DataProcessing {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				System.out.println("exception: dataprocessing.java lijn 60");
 			}
 		}
 }

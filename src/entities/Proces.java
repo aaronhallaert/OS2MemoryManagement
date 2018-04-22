@@ -20,8 +20,8 @@ public class Proces {
 	
 	
 	public Proces(List<PTEntry> pageTable, int pid) {
-		super();
-		this.pageTable = pageTable;
+		//super(); //wat doet die super hier?
+		this.pageTable = new ArrayList<PTEntry>(16);
 		this.pid = pid;
 	}
 	
