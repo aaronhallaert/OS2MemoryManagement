@@ -11,6 +11,9 @@ public class HoofdMenuController {
 	
 	 @FXML
 	 private Button readXML;
+	 
+	 @FXML 
+	 private Button volgendeInstructie;
 	
 	 public HoofdMenuController() {
 		 
@@ -23,10 +26,16 @@ public class HoofdMenuController {
 	
 	@FXML
 	public void setButtonLees(ActionEvent e) {
-			MemoryController.voerVolgendeInstructieUit();
-			//als we hier de methode om de volgende instructie uit te
-			//zou het telkens de 1e instructie zijn die wordt uitgevoerd
+		// XML file inlezen
+		MemoryController.instantiate();
+		
 			
+	}
+	
+	@FXML
+	public void setButtonVolgendeInstructieUit(ActionEvent e) {
+		// volgende instructie
+		MemoryController.voerVolgendeInstructieUit();
 	}
 	
 	

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -22,7 +23,7 @@ import entities.Proces;
 
 public class DataProcessing {
 	//xml file analyseren en instructies eruit halen
-			public static void findInstructies(String pad, LinkedList<Instructie> instructies, ArrayList<Proces> processen) {
+			public static void findInstructies(String pad, LinkedList<Instructie> instructies, Map<Integer,Proces> processen) {
 
 			try {
 				Set<Integer> procesNumbers= new HashSet<>();
@@ -53,7 +54,7 @@ public class DataProcessing {
 				
 				// alle processen aanmaken met een pagetable
 				for(int procesNumber: procesNumbers) {
-					processen.add(new Proces(new ArrayList<PTEntry>(),procesNumber));
+					processen.put(procesNumber, new Proces(new ArrayList<PTEntry>(16),procesNumber));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

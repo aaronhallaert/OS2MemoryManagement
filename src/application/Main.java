@@ -26,7 +26,7 @@ public class Main extends Application {
 			
 			FXMLLoader loader = new FXMLLoader();
 			
-			BorderPane root= (BorderPane) loader.load(getClass().getResource("HoofdMenu.fxml"));
+			VBox root= (VBox) loader.load(getClass().getResource("HoofdMenu.fxml"));
 			Scene scene = new Scene(root, 400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);

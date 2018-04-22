@@ -1,6 +1,8 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * reele adresruimte = 48 kbyte
@@ -17,15 +19,16 @@ import java.util.ArrayList;
 public class RAM {
 	
 	
-	private ArrayList<Frame> ram;
+	private Map<Integer, Frame> frames;
 	
+	//toestandsvariabelen van het ram (om eenvoudig te beredeneren)
 	private int aantalProcessenAanwezig; // maximum 4
 	
 	
 	public RAM() {
 		
-		ram = new ArrayList<Frame>();
-		
+		frames = new HashMap<Integer, Frame>();
+		aantalProcessenAanwezig = 0;
 		
 		// ram opvullen met frames
 		for(int i=0; i<12 ; i++) {
@@ -33,14 +36,25 @@ public class RAM {
 			//frame constructor, zet ingevuld op false al
 			Frame f = new Frame();
 			
-			//framenummer instellen
-			f.setFrameNummer(i);
-			
 			//frame toevoegen aan ram
-			ram.add(f);
+			frames.put(i, f);
 			
 		}	
 	}
+
+
+	public int getAantalProcessenAanwezig() {
+		return aantalProcessenAanwezig;
+	}
+
+
+	public void setAantalProcessenAanwezig(int aantalProcessenAanwezig) {
+		this.aantalProcessenAanwezig = aantalProcessenAanwezig;
+	}
+	
+	
+	
+	
 	
 	
 	

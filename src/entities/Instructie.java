@@ -42,9 +42,27 @@ public class Instructie {
 		String operatie=this.getOperatie();
 		int pid= this.getPid();
 		int virtueelAdres= this.getVirtueelAdres();
+
+		//effectieve uitvoeren van de instructie
+		switch(operatie) {
+		case "Read" :	System.out.println("read");
+						break;
+			
+		case "Write":	System.out.println("write");
+						break;
+			
+		case "Terminate":System.out.println("terminate");
+						break;
+			
+		case "Start":	System.out.println("start");
 		
+						
+						break;
+			
+		default :
 		System.out.println("execute: "+ this.toString());
 	}
 	
 	
+	}
 }
