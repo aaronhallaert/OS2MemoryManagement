@@ -15,7 +15,11 @@ public class PTEntry {
     
     // constructoren
 	public PTEntry() {
-		
+		pageNr =-1;
+		present = false;
+		modified = false; // wordt uitzonderlijk op true gezet
+		laatsteKeerGebruikt = -1;
+		frameNr =-1; 	//framenummer op -1 want frame 0 bestaat
 	}
 
 	public PTEntry(int pageNr, boolean present, boolean modified, int laatsteKeerGebruikt, int frameNr) {
