@@ -128,6 +128,7 @@
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Accordion fx:id="pageTables" />
+            <TextArea fx:id="console" prefHeight="200.0" prefWidth="200.0" />
          </children></VBox>
    </center>
 </BorderPane>

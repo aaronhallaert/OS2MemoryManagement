@@ -1,11 +1,17 @@
 package presentatie;
 
 
+
+import java.io.Console;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import application.Main;
 import entities.Proces;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -57,6 +64,9 @@ public class HoofdMenuController {
 	 @FXML
 	 Text procesFrame11;
 	 
+	 @FXML
+	 private TextArea console;
+	 private PrintStream log;
 	 
 	 @FXML
 	 Accordion pageTables;
@@ -66,10 +76,13 @@ public class HoofdMenuController {
 	 Text klok;
 	
 	 public HoofdMenuController() {
-		 
+		
 		 
 	 }
 	 
+	 public void initialize() {
+	        log = new PrintStream(new Console(console)) ;
+	  }
 	 
 	 
 	
@@ -144,6 +157,23 @@ public class HoofdMenuController {
 		
 		
 	}
+	
+	
+	public class Console extends OutputStream {
+        private TextArea console;
+
+        public Console(TextArea console) {
+            this.console = console;
+        }
+
+        public void appendText(String valueOf) {
+            Platform.runLater(() -> console.appendText(valueOf));
+        }
+
+        public void write(int b) throws IOException {
+            appendText(String.valueOf((char)b));
+        }
+    }
 
 	
 }

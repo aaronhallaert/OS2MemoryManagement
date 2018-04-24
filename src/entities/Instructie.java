@@ -180,7 +180,7 @@ public class Instructie {
 						}
 						else if (aantalProcessenInRam ==4) {
 							System.out.println("4 processen reeds aanwezig");
-							//swap 1 proces volledig uit , laadt 1 process volledig in
+							// swap 1 proces volledig uit , laadt 1 process volledig in
 							// welk proces???
 							
 						}
