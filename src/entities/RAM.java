@@ -72,6 +72,7 @@ public class RAM {
 	 * @param framenummer
 	 */
 	public void laadPageIn(Page p, int framenummer) {
+		System.out.println(framenummer);
 		frames.get(framenummer).copyPage(p);
 	}
 	

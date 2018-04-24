@@ -132,21 +132,25 @@ public class MemoryController {
 			
 			//page table opvragen
 			List<PTEntry> pageTable= new ArrayList<PTEntry>(aanwezigeProcessen.get(i).getPageTable());	
-			
+			List<PTEntry> truePages= new ArrayList<PTEntry> ();
 			// sorteren volgens LRU
 			Collections.sort(pageTable, new Comparator<PTEntry>() {
 				public int compare(PTEntry pt1, PTEntry pt2) {
 					return Integer.compare(pt1.getLaatsteKeerGebruikt(), pt2.getLaatsteKeerGebruikt());
 				}
 			});	
+			for(int x=0; x<pageTable.size(); x++) {
+				if(pageTable.get(x).isPresent()) {
+					truePages.add(pageTable.get(x));
+				}
+			}
 			
-			
-			// lijst met (voor 1 proces aanwezig) 6 lru frames	
+			// lijst met (voor 1 proces aanwezig 6) # lru frames	
 			List<Integer> lruFramesVanProces= new ArrayList<Integer>();
 			
 			lruFramesVanProces.add(aanwezigeProcessen.get(i).getPid());
 			for(int j=0; j<aantal; j++) {
-				lruFramesVanProces.add(pageTable.get(j).getFrameNr());
+				lruFramesVanProces.add(truePages.get(j).getFrameNr());
 			}
 			lruFramesPerProces.put(i, lruFramesVanProces);
 			
