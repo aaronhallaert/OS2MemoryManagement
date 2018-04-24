@@ -1,7 +1,9 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Proces {
 
@@ -91,6 +93,12 @@ public class Proces {
 		
 		System.out.println("---------------------------------------------------------------------------------------------------");
 		System.out.println("---------------------------------------------------------------------------------------------------");
+	}
+
+
+	public void schrijfNaarVM(Map<Integer, Integer> geheugenPlaatsen, int paginanummer) {
+		this.vm.getPage(paginanummer).setGeheugenPlaatsen(new HashMap<Integer, Integer>(geheugenPlaatsen));
+		
 	}
 	
 }

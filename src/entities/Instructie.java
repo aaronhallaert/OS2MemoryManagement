@@ -81,7 +81,9 @@ public class Instructie {
 						System.out.println("pagenummer: "+pagenummer);
 						System.out.println("offset: "+offset);
 						
-
+						if(huidigProces.getPageTable().get(pagenummer).isPresent()) {
+							System.out.println("zit er in");
+						}
 			
 		
 		
@@ -115,7 +117,53 @@ public class Instructie {
 							
 							
 							// frames wegschrijven indien modified
-							// page table van uitgeworpen proces correct zetten
+						
+							
+							for(int i= 0; i<lruFramesPerProces.size(); i++) {
+								List<Integer> lruFramesVanProces= lruFramesPerProces.get(i);
+								Proces p= processen.get(lruFramesVanProces.get(0));
+								for(int j=1; j<lruFramesVanProces.size();j++) {
+									// paginanummer horend bij frame
+									int paginanummer=p.getPageIdByFrameNummer(lruFramesVanProces.get(j));
+									// page table entry van paginanummer
+									PTEntry pteProces= p.getPageTable().get(paginanummer);
+									
+									// als frame is aangepast, schrijf frame naar pagina in vm
+									if(pteProces.isModified()) {
+										System.out.println("Wegschrijven van aangepaste frames");
+										// frame meegeven en paginanummer
+										p.schrijfNaarVM(ram.getFrame(lruFramesVanProces.get(i)).getGeheugenPlaatsen(), paginanummer);
+									}
+									else {
+										System.out.println("Er hoeft niets weggeschreven te worden");
+									}
+									
+									
+									// page table aanpassen van uitgeworpen proces
+									PTEntry ptEntry1;
+									
+									ptEntry1=p.getPageTable().get(paginanummer);
+									ptEntry1.setFrameNr(-1);
+									ptEntry1.setPresent(false);
+									
+									
+								}
+								
+								
+								
+									
+									
+									
+								
+								
+								
+								
+								
+							}
+							
+							
+							
+							
 							
 							
 							
@@ -123,20 +171,20 @@ public class Instructie {
 							
 							// inladen nieuw proces
 						
-							PTEntry ptEntry;
+							PTEntry ptEntry2;
 							for(int i=0; i<lruFrames.size();i++) {
-								ptEntry=new PTEntry();
-								ptEntry.setFrameNr(lruFrames.get(i));
-								ptEntry.setPageNr(i);
-								ptEntry.setPresent(true);
-								ptEntry.setLaatsteKeerGebruikt(klok);
-								huidigProces.getPageTable().add(ptEntry);
+								ptEntry2=new PTEntry();
+								ptEntry2.setFrameNr(lruFrames.get(i));
+								ptEntry2.setPageNr(i);
+								ptEntry2.setPresent(true);
+								ptEntry2.setLaatsteKeerGebruikt(klok);
+								huidigProces.getPageTable().add(ptEntry2);
 								// laad ide pagina van huidig proces in
 								ram.laadPageIn(huidigProces.getPage(i), lruFrames.get(i));
 							}
 							
 							huidigProces.printPageTable();
-							
+							processen.get(0).printPageTable();
 							
 							
 							

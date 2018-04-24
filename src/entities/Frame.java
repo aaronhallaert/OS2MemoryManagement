@@ -54,6 +54,11 @@ public class Frame {
 	public void setFrameNummer(int nummer){
 		this.framenummer=nummer;
 	}
+	
+	
+	public Map<Integer, Integer> getGeheugenPlaatsen(){
+		return geheugenPlaatsen;
+	}
 
 	
 	
