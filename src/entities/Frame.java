@@ -68,13 +68,6 @@ public class Frame {
 	}
 
 	
-	
-	
-	public void setHuidigePage() {
-		
-		
-	}
-	
 	/**
 	 * inladen van een page van virtueel memory naar RAM
 	 * @param p

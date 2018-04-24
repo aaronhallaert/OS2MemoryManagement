@@ -58,4 +58,17 @@ public class Proces {
 		this.pid = pid;
 	}
 	
+	
+	public void printPageTable() {
+		System.out.println("----------------------------- PageTabel proces "+ this.getPid()+" ----------------------------------------");
+		System.out.println("-----------------------------------------------------------------------------------------");
+		System.out.println("\t Page Nummer \t || Frame Nummer \t || Last Time Accessed");
+		for(int i=0; i<this.getPageTable().size();i++) {
+			System.out.println("\t "+this.getPageTable().get(i).getPageNr()+" \t\t || " + this.getPageTable().get(i).getFrameNr()+" \t\t\t || " + this.getPageTable().get(i).getLaatsteKeerGebruikt());
+		}
+		
+		System.out.println("-----------------------------------------------------------------------------------------");
+		System.out.println("-----------------------------------------------------------------------------------------");
+	}
+	
 }

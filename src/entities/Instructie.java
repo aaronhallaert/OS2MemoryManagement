@@ -104,12 +104,14 @@ public class Instructie {
 									ptEntry.setFrameNr(i);
 									ptEntry.setPageNr(i);
 									ptEntry.setPresent(true);
+									ptEntry.setLaatsteKeerGebruikt(klok);
 									
 									
 									// toevoegen van pageTableEntry aan pagetable
 									huidigProces.getPageTable().add(ptEntry);
 									ram.laadPageIn(huidigProces.getPage(i), i);
 								}
+								huidigProces.printPageTable();
 								
 								
 					
