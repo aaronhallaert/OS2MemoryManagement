@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Proces {
 
+	private VirtueelGeheugen vm;
 	private List<PTEntry> pageTable;
 	private int pid;
 	

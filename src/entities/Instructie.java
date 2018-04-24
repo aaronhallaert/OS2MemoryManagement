@@ -94,7 +94,9 @@ public class Instructie {
 									ptEntry.setFrameNr(i);
 									ptEntry.setPageNr(i);
 									ptEntry.setPresent(true);
+									
 									processen.get(pid).getPageTable().add(ptEntry);
+									
 								}
 								
 							//2) effectief de pages naar het ram inladen 

@@ -48,6 +48,20 @@ public class Frame {
 	public void setFrameNummer(int nummer){
 		this.framenummer=nummer;
 	}
+
+	public String getAanwezigProces() {
+		if (bevatPage) {
+			return Integer.toString(huidigePage.getProcessId());
+		}
+		else {
+			return "//";
+		}
+	}
+
+	public void setHuidigePage() {
+		
+		
+	}
 	
 	
 }

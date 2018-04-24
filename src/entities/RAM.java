@@ -52,6 +52,11 @@ public class RAM {
 	public void setAantalProcessenAanwezig(int aantalProcessenAanwezig) {
 		this.aantalProcessenAanwezig = aantalProcessenAanwezig;
 	}
+
+
+	public Frame getFrame(int i) {
+		return frames.get(i);
+	}
 	
 	
 	

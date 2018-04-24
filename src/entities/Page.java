@@ -16,5 +16,10 @@ public class Page {
 			geheugenPlaatsen.put(i, -1);
 		}
 	}
+
+
+	public int getProcessId() {
+		return procesId;
+	}
 	
 }

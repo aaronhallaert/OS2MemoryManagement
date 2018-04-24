@@ -1,6 +1,9 @@
 package presentatie;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,19 +16,42 @@ import logica.MemoryController;
 
 public class HoofdMenuController {
 	MemoryController mc;
-	
+	List<Text> processFrames = new ArrayList<Text>();
 	 @FXML
 	 private Button readXML;
 	 
 	 @FXML 
 	 private Button volgendeInstructie;
 	 
-	 @FXML 
-	 private Scene root;
+	 //visualisatie van het ram
+	 @FXML
+	 Text procesFrame0;
+	 @FXML
+	 Text procesFrame1;
+	 @FXML
+	 Text procesFrame2;
+	 @FXML
+	 Text procesFrame3;
+	 @FXML
+	 Text procesFrame4;
+	 @FXML
+	 Text procesFrame5;
+	 @FXML
+	 Text procesFrame6;
+	 @FXML
+	 Text procesFrame7;
+	 @FXML
+	 Text procesFrame8;
+	 @FXML
+	 Text procesFrame9;
+	 @FXML
+	 Text procesFrame10;
+	 @FXML
+	 Text procesFrame11;
 	
 	 public HoofdMenuController() {
-		 root= Main.scene;
-		 setProcesInFrame(1, 0);
+		 
+		 
 	 }
 	 
 	 
@@ -35,24 +61,42 @@ public class HoofdMenuController {
 	public void setButtonLees(ActionEvent e) {
 		// XML file inlezen
 		MemoryController.instantiate();
+		setFrames();
+		
 		
 			
+	}
+	
+	public void setFrames() {
+		processFrames.add(procesFrame0);
+		 processFrames.add(procesFrame1);
+		 processFrames.add(procesFrame2);
+		 processFrames.add(procesFrame3);
+		 processFrames.add(procesFrame4);
+		 processFrames.add(procesFrame5);
+		 processFrames.add(procesFrame6);
+		 processFrames.add(procesFrame7);
+		 processFrames.add(procesFrame8);
+		 processFrames.add(procesFrame9);
+		 processFrames.add(procesFrame10);
+		 processFrames.add(procesFrame11);
 	}
 	
 	@FXML
 	public void setButtonVolgendeInstructieUit(ActionEvent e) {
 		// volgende instructie
 		MemoryController.voerVolgendeInstructieUit();
+		updateVisualisatieRam();
 	}
 	
 	
-	public void setProcesInFrame(int proces, int frame) {
-		StringBuilder sb= new StringBuilder();
-		sb.append("#procesFrame").append(Integer.toString(frame));
-		System.out.println(sb.toString());
-		Text textview= (Text) root.lookup(sb.toString());
-		textview.setText(Integer.toString(proces));
+	private void updateVisualisatieRam() {
+		for(int i=0; i<12;i++) {
+			processFrames.get(i).setText(MemoryController.ram.getFrame(i).getAanwezigProces());
+			
+		}
+		
+		
 	}
-	
 	
 }
