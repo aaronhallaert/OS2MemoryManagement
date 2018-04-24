@@ -1,9 +1,14 @@
 package presentatie;
 
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import logica.MemoryController;
 
 public class HoofdMenuController {
@@ -14,15 +19,17 @@ public class HoofdMenuController {
 	 
 	 @FXML 
 	 private Button volgendeInstructie;
+	 
+	 @FXML 
+	 private Scene root;
 	
 	 public HoofdMenuController() {
-		 
+		 root= Main.scene;
+		 setProcesInFrame(1, 0);
 	 }
 	 
 	 
-	 public HoofdMenuController(MemoryController mc) {
-		 this.mc=mc;
-	 }
+	 
 	
 	@FXML
 	public void setButtonLees(ActionEvent e) {
@@ -38,6 +45,14 @@ public class HoofdMenuController {
 		MemoryController.voerVolgendeInstructieUit();
 	}
 	
+	
+	public void setProcesInFrame(int proces, int frame) {
+		StringBuilder sb= new StringBuilder();
+		sb.append("#procesFrame").append(Integer.toString(frame));
+		System.out.println(sb.toString());
+		Text textview= (Text) root.lookup(sb.toString());
+		textview.setText(Integer.toString(proces));
+	}
 	
 	
 }

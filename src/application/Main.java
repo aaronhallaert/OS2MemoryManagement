@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
  *
  */
 public class Main extends Application {
-	
+	public static Scene scene;
 	//alles temaken met de fxml
 	@Override
 	public void start(Stage primaryStage) {
@@ -26,8 +26,10 @@ public class Main extends Application {
 			
 			FXMLLoader loader = new FXMLLoader();
 			
-			VBox root= (VBox) loader.load(getClass().getResource("HoofdMenu.fxml"));
-			Scene scene = new Scene(root, 400,400);
+			BorderPane root= (BorderPane) loader.load(getClass().getResource("HoofdMenu.fxml"));
+			root.setPrefHeight(1000);
+			root.setPrefWidth(1000);
+			scene = new Scene(root, 1000,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();

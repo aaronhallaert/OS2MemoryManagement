@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import logica.MemoryController;
@@ -59,25 +61,13 @@ public class Instructie {
 			
 		case "Write":	System.out.println("write");
 						
-						// virtueel adres omzetten in een paginanummer + offset in de pagina
-						String binair = Integer.toBinaryString(virtueelAdres);
+		
+						List<Integer> adres= splitsDecimaalAdresOp(virtueelAdres);
+						int pagenummer= adres.get(0);
+						int offset= adres.get(1);
+						System.out.println("pagenummer: "+pagenummer);
+						System.out.println("offset: "+offset);
 						
-						//nullen bijzetten tot we 12 characters hebben
-						StringBuilder sb = new StringBuilder();
-						for(int i=0 ; i< (16-binair.length()); i++) {
-							sb.append("0");
-						}
-						sb.append(binair);
-						binair = sb.toString();
-						
-						System.out.println("binair final =" + binair);
-						System.out.println(binair.substring(0,4));
-						System.out.println(binair.substring(4));
-						
-						int pagenummer = Integer.parseInt(binair.substring(0, 4), 2);
-						int offset = Integer.parseInt(binair.substring(4),2);
-						System.out.println(pagenummer);
-						System.out.println(offset);
 
 			
 		
@@ -117,10 +107,41 @@ public class Instructie {
 						break;
 			
 		default :
-						System.out.println("execute: "+ this.toString());
+						System.out.println("execute: "+ this.toString()+ " bevat geen operatie");
 						break;
 	}
 	
 	
+	}
+
+	/**
+	 * vertaling van decimaal virtueel adres naar pagenummer en offset (decimaal)
+	 * met behulp van binaire conversie
+	 * 
+	 * @return List met pagenummer (0) en offset (1) decimaal
+	 */
+	private List<Integer> splitsDecimaalAdresOp(int virtueelAdres) {
+		// virtueel adres omzetten in een paginanummer + offset in de pagina
+		String binair = Integer.toBinaryString(virtueelAdres);
+		
+		//nullen bijzetten tot we 12 characters hebben
+		StringBuilder sb = new StringBuilder();
+		for(int i=0 ; i< (16-binair.length()); i++) {
+			sb.append("0");
+		}
+		sb.append(binair);
+		binair = sb.toString();
+		
+		System.out.println("binair final =" + binair);
+		System.out.println(binair.substring(0,4));
+		System.out.println(binair.substring(4));
+		
+		
+		List<Integer> list= new ArrayList<Integer>();
+		list.add(Integer.parseInt(binair.substring(0, 4), 2));
+		list.add(Integer.parseInt(binair.substring(4),2));
+		
+		return list;
+		
 	}
 }
