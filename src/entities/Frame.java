@@ -58,16 +58,26 @@ public class Frame {
 	
 	
 	
-	public String getAanwezigProces() {
-		if (bevatPage) {
-			return Integer.toString(procesnummer);
-		}
-		else {
-			return "//";
-		}
+	public int getAanwezigProces() {
+		return procesnummer;
 	}
 
 	
+	
+	
+	
+	public boolean isBevatPage() {
+		return bevatPage;
+	}
+
+
+
+	public void setBevatPage(boolean bevatPage) {
+		this.bevatPage = bevatPage;
+	}
+
+
+
 	/**
 	 * inladen van een page van virtueel memory naar RAM
 	 * @param p

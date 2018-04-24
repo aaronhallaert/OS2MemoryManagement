@@ -93,24 +93,22 @@ public class HoofdMenuController {
 	
 	private void updateVisualisatieRam() {
 		for(int i=0; i<12;i++) {//i stelt framenummer voor
-			StringBuilder sb = new StringBuilder();
-			sb.append(MemoryController.ram.getFrame(i).getAanwezigProces());
-				// "//" als geen process, nummer als wel proces
-			
-			if (!sb.toString().equals("//")){
-				//als het een getal is
-				System.out.println("yes, tis een getal");
-				int pID = Integer.parseInt(sb.toString());
+		
+			String visualisatie;
+			//als een proces in de frame zit, gaan we in de if
+			if (MemoryController.ram.getFrame(i).isBevatPage()){
+				
+				//neemt de id van de
+				int pID = MemoryController.ram.getFrame(i).getAanwezigProces();
 				Proces p = MemoryController.processen.get(pID);
 				int frameNummer = p.getPageIdByFrameNummer(i);
-				
-				//clearen van de stringBuilder
-				sb.setLength(0);
-				
-				sb.append("proces " + pID+", page "+frameNummer);
+				visualisatie = "proces " + pID+", page "+frameNummer;
+			}
+			else {
+				visualisatie ="--";
 			}
 			
-			processFrames.get(i).setText(sb.toString());
+			processFrames.get(i).setText(visualisatie);
 		}
 		
 		
