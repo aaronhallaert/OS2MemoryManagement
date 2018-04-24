@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.Main;
+import entities.Proces;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -91,9 +92,25 @@ public class HoofdMenuController {
 	
 	
 	private void updateVisualisatieRam() {
-		for(int i=0; i<12;i++) {
-			processFrames.get(i).setText(MemoryController.ram.getFrame(i).getAanwezigProces());
+		for(int i=0; i<12;i++) {//i stelt framenummer voor
+			StringBuilder sb = new StringBuilder();
+			sb.append(MemoryController.ram.getFrame(i).getAanwezigProces());
+				// "//" als geen process, nummer als wel proces
 			
+			if (!sb.toString().equals("//")){
+				//als het een getal is
+				System.out.println("yes, tis een getal");
+				int pID = Integer.parseInt(sb.toString());
+				Proces p = MemoryController.processen.get(pID);
+				int frameNummer = p.getPageIdByFrameNummer(i);
+				
+				//clearen van de stringBuilder
+				sb.setLength(0);
+				
+				sb.append("proces " + pID+", page "+frameNummer);
+			}
+			
+			processFrames.get(i).setText(sb.toString());
 		}
 		
 		
