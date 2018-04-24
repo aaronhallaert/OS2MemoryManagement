@@ -3,6 +3,9 @@ package entities;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+
+import application.Main;
 
 /**
  * reele adresruimte = 48 kbyte
@@ -38,7 +41,7 @@ public class RAM {
 			
 			//frame constructor, zet ingevuld op false al
 			Frame f = new Frame();
-			
+			f.setFrameNummer(i);
 			//frame toevoegen aan ram
 			frames.put(i, f);
 			
@@ -72,7 +75,7 @@ public class RAM {
 	 * @param framenummer
 	 */
 	public void laadPageIn(Page p, int framenummer) {
-		System.out.println(framenummer);
+		Main.log(Level.INFO, "page "+ p.getPageNummer() + " van proces "+ p.getProcessId()+" wordt ingeladen in frame "+framenummer);
 		frames.get(framenummer).copyPage(p);
 	}
 	

@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
+import application.Main;
 import entities.Instructie;
 import entities.PTEntry;
 import entities.Proces;
@@ -68,12 +70,12 @@ public class MemoryController {
 			//instructie uitgevoerd
 			//klok 1 omhoog
 			klok++;
-			System.out.println("klok = "+klok);
+			
 		}
 		
 		
 		else {
-			System.out.println("einde bereikt");
+			Main.log(Level.WARNING, "Einde van instructieset bereikt");
 		}
 		
 		
@@ -102,7 +104,7 @@ public class MemoryController {
 			//instructie uitgevoerd
 			//klok 1 omhoog
 			klok++;
-			System.out.println("klok = "+klok);
+			
 		}
 	
 	

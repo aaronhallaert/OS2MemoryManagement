@@ -8,6 +8,7 @@ public class Page {
 	private int procesId;
 	private Map<Integer, Integer> geheugenPlaatsen= new HashMap<>();
 	private static final int grootte= 4096;
+	private int pagenummer;
 	
 	
 	public Page() {
@@ -15,6 +16,7 @@ public class Page {
 		for(int i=0; i< grootte; i++) {
 			geheugenPlaatsen.put(i, -1);
 		}
+		
 	}
 	
 	public Page(int procesNummer) {
@@ -22,6 +24,15 @@ public class Page {
 		for(int i=0; i< grootte; i++) {
 			geheugenPlaatsen.put(i, -1);
 		}
+		
+	}
+	
+	public void setPageNummer(int pagenummer) {
+		this.pagenummer=pagenummer;
+	}
+	
+	public int getPageNummer() {
+		return pagenummer;
 	}
 
 

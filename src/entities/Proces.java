@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 import application.Main;
 import javafx.scene.control.Label;
@@ -80,8 +81,9 @@ public class Proces {
 			}
 		}
 		
-		if(pageNummer == -1) {System.out.println("dit process bevat geen overeenkomstige page");
-								System.out.println("process::getPageIdByFrameNummer");}
+		if(pageNummer == -1) {
+			Main.log(Level.SEVERE, "proces "+this.getPid()+ " bevat geen overeenkomstige page, process::getPageIdByFrameNummer" );
+		}
 		
 		return pageNummer;
 		

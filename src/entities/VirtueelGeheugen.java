@@ -23,6 +23,7 @@ public class VirtueelGeheugen {
 	public VirtueelGeheugen(int procesNummer) {
 		for(int i=0; i<aantalPages; i++) {
 			Page page= new Page(procesNummer);
+			page.setPageNummer(i);
 			pages.put(i, page);
 		}
 	}

@@ -2,12 +2,16 @@ package presentatie;
 
 
 
+import java.io.BufferedReader;
 import java.io.Console;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.sun.media.jfxmedia.logging.Logger;
 
 import application.Main;
 import entities.Proces;
@@ -66,7 +70,7 @@ public class HoofdMenuController {
 	 
 	 @FXML
 	 private TextArea console;
-	 private PrintStream log;
+	 
 	 
 	 @FXML
 	 Accordion pageTables;
@@ -77,18 +81,18 @@ public class HoofdMenuController {
 	
 	 public HoofdMenuController() {
 		
-		 
+		
 	 }
 	 
-	 public void initialize() {
-	        log = new PrintStream(new Console(console)) ;
-	  }
+
+
 	 
 	 
 	
 	@FXML
 	public void setButtonLees(ActionEvent e) {
-		// XML file inlezen
+		
+       
 		MemoryController.instantiate();
 		setFrames();
 		for(int i=0; i<MemoryController.processen.size();i++)
@@ -132,7 +136,43 @@ public class HoofdMenuController {
 		for(int i=0; i<MemoryController.processen.size();i++) {
 			MemoryController.processen.get(i).printPageTable();
 		}
+		
+		
+		
+		// update logger
+		updateLogTextArea();
+		
+		
+		
 	}
+
+	private void updateLogTextArea() {
+		try
+        {
+            FileReader reader = new FileReader("D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Workspace_Besturingssystemen2\\MemoryManagement\\logger.log");
+            BufferedReader in = new BufferedReader(reader);
+            String line = in.readLine();
+            
+            StringBuilder sb= new StringBuilder();
+            while(line != null)
+            {
+            	if(!line.contains("application.Main")) {
+              sb.append(line+"\n");
+            	}
+              line = in.readLine();
+            }
+            in.close();
+            
+            console.setText(sb.toString());
+            // scrol naar beneden
+            console.setScrollTop(Double.MAX_VALUE);
+        }
+        catch(Exception e) { 
+        	e.printStackTrace();
+        }
+		
+	}
+	
 	
 	
 	private void updateVisualisatieRam() {
@@ -156,24 +196,17 @@ public class HoofdMenuController {
 		}
 		
 		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	
-	public class Console extends OutputStream {
-        private TextArea console;
-
-        public Console(TextArea console) {
-            this.console = console;
-        }
-
-        public void appendText(String valueOf) {
-            Platform.runLater(() -> console.appendText(valueOf));
-        }
-
-        public void write(int b) throws IOException {
-            appendText(String.valueOf((char)b));
-        }
-    }
-
+	
+	
 	
 }

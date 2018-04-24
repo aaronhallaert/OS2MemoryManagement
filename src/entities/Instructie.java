@@ -6,7 +6,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
+import application.Main;
 import logica.MemoryController;
 
 public class Instructie {
@@ -48,7 +50,7 @@ public class Instructie {
 	}
 	
 	public void execute() {
-		
+		Main.log(Level.INFO, "execute: "+ this.toString());
 		// belangrijk bij opstarten proces
 		int aantalProcessenInRam;
 		
@@ -81,12 +83,10 @@ public class Instructie {
 						int pagenummer= adres.get(0);
 						int offset= adres.get(1);
 						
-						System.out.println("pagenummer: "+pagenummer);
-						System.out.println("offset: "+offset);
-										
+						Main.log(Level.INFO, "Proces "+ huidigProces.getPid()+ " write naar page "+pagenummer+" met offset "+ offset);
 						
 						if(huidigProces.getPageTable().get(pagenummer).isPresent()) {
-							System.out.println("huidige pagina is aanwezig");
+							Main.log(Level.INFO, "Pagina "+pagenummer+" van proces "+huidigProces.getPid()+" is aanwezig");
 							
 							//huidig frame zoeken in de pageTable
 							PTEntry pte = huidigProces.getPageTable().get(pagenummer);
@@ -212,8 +212,8 @@ public class Instructie {
 						}
 						break;
 			
-		default :
-						System.out.println("execute: "+ this.toString()+ " bevat geen operatie");
+						default :
+						Main.log(Level.SEVERE, "execute: "+ this.toString()+ " bevat geen operatie");
 						break;
 	}
 	
@@ -237,11 +237,11 @@ public class Instructie {
 		}
 		sb.append(binair);
 		binair = sb.toString();
-		
+		/*
 		System.out.println("binair final =" + binair);
 		System.out.println(binair.substring(0,4));
 		System.out.println(binair.substring(4));
-		
+		*/
 		
 		List<Integer> list= new ArrayList<Integer>();
 		list.add(Integer.parseInt(binair.substring(0, 4), 2));
@@ -254,7 +254,7 @@ public class Instructie {
 	
 
 private void startProces(int aantalProcessenInRam, int aantalPagesAfstaanPerProces, Proces huidigProces) {
-	System.out.println(aantalProcessenInRam+" processen reeds aanwezig");
+	
 	
 	List<Integer> lruFrames=new ArrayList<Integer>();
 	
@@ -286,12 +286,12 @@ private void startProces(int aantalProcessenInRam, int aantalPagesAfstaanPerProc
 			
 			// als frame is aangepast, schrijf frame naar pagina in vm
 			if(pteProces.isModified()) {
-				System.out.println("Wegschrijven van aangepaste frames");
+				Main.log(Level.INFO, "Wegschrijven van aangepast frame "+ lruFramesVanProces.get(j));
 				// frame meegeven en paginanummer
 				p.schrijfNaarVM(MemoryController.ram.getFrame(lruFramesVanProces.get(i)).getGeheugenPlaatsen(), paginanummer);
 			}
 			else {
-				System.out.println("Er hoeft niets weggeschreven te worden");
+				Main.log(Level.INFO, "Er hoeft niets weggeschreven te worden, page " +pteProces.getPageNr()+ " van proces "+ huidigProces.getPid() +" in frame "+ pteProces.getFrameNr()+" werd niet aangepast");
 			}
 			
 			

@@ -2,6 +2,12 @@ package entities;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+
+import com.sun.media.jfxmedia.logging.Logger;
+
+import application.Main;
+import logica.MemoryController;
 
 /**
  * 
@@ -88,7 +94,7 @@ public class Frame {
 	 * @param p
 	 */
 	public void copyPage(Page p) {
-		System.out.println("kopieren page");
+		Main.log(Level.INFO, "Page " + p.getPageNummer() +" van proces "+p.getProcessId()+" wordt gekopieerd naar frame "+this.framenummer);
 		this.geheugenPlaatsen= new HashMap<>(p.getGeheugenPlaatsen());
 		this.procesnummer=p.getProcessId();
 		bevatPage=true;

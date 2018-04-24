@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.logging.Level;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,6 +18,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import application.Main;
 import entities.Instructie;
 import entities.PTEntry;
 import entities.Proces;
@@ -58,8 +60,9 @@ public class DataProcessing {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("exception: dataprocessing.java lijn 60");
-				System.out.println("hoogst waarschijnlijk omdat het pad niet aangepast is: memorycontroller lijn 45");
+				
+				Main.log(Level.SEVERE, "exception: dataprocessing.java lijn 60, pad niet gevonden: memorycontroller lijn 45");
+				
 			}
 		}
 }
