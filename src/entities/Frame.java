@@ -63,5 +63,14 @@ public class Frame {
 		
 	}
 	
+	/**
+	 * inladen van een page van virtueel memory naar RAM
+	 * @param p
+	 */
+	public void copyPage(Page p) {
+		System.out.println("kopieren page");
+		this.geheugenPlaatsen= new HashMap<>(p.getGeheugenPlaatsen());
+	}
+	
 	
 }

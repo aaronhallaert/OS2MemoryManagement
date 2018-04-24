@@ -18,6 +18,10 @@ public class VirtueelGeheugen {
 		}
 	}
 	
+	public Page getPage(int pagenummer) {
+		return pages.get(pagenummer);
+	}
+	
 	
 	
 }

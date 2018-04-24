@@ -60,5 +60,16 @@ public class RAM {
 	
 	
 	
+	/**
+	 * laad geheugen page p in frame met framenummer
+	 * @param p
+	 * @param framenummer
+	 */
+	public void laadPageIn(Page p, int framenummer) {
+		frames.get(framenummer).copyPage(p);
+	}
+	
+	
+	
 	
 }

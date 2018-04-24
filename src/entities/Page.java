@@ -21,5 +21,17 @@ public class Page {
 	public int getProcessId() {
 		return procesId;
 	}
+
+
+	public Map<Integer, Integer> getGeheugenPlaatsen() {
+		return geheugenPlaatsen;
+	}
+
+
+	public void setGeheugenPlaatsen(Map<Integer, Integer> geheugenPlaatsen) {
+		this.geheugenPlaatsen = geheugenPlaatsen;
+	}
+	
+	
 	
 }

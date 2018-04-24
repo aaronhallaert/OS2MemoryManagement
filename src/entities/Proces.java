@@ -17,12 +17,14 @@ public class Proces {
 	 */
 	public Proces() {
 		pageTable = new ArrayList<PTEntry>(16);
+		vm= new VirtueelGeheugen();
 	}
 	
 	
 	public Proces(int pid) {
 		pageTable = new ArrayList<PTEntry>(16);
 		this.pid=pid;
+		vm= new VirtueelGeheugen();
 	}
 	
 	

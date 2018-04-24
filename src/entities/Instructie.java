@@ -45,14 +45,24 @@ public class Instructie {
 	}
 	
 	public void execute() {
+		
+		// belangrijk bij opstarten proces
 		int aantalProcessenInRam;
+		
+		
+		// eigenschappen van instructie
 		String operatie=this.getOperatie();
 		int pid= this.getPid();
 		int virtueelAdres= this.getVirtueelAdres();
-		VirtueelGeheugen virtueelGeheugen = MemoryController.virtueelGeheugen;
+		
+		
+		// algemene variabelen
 		RAM ram = MemoryController.ram;
 		int klok = MemoryController.klok;
 		Map<Integer, Proces> processen = MemoryController.processen;
+		
+		
+		Proces huidigProces= processen.get(pid);
 		
 		//effectieve uitvoeren van de instructie
 		switch(operatie) {
@@ -95,7 +105,9 @@ public class Instructie {
 									ptEntry.setPageNr(i);
 									ptEntry.setPresent(true);
 									
-									processen.get(pid).getPageTable().add(ptEntry);
+									
+									// toevoegen van pageTableEntry aan pagetable
+									huidigProces.getPageTable().add(ptEntry);
 									
 								}
 								
