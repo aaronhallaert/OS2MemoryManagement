@@ -11,9 +11,18 @@ public class VirtueelGeheugen {
 	private Map<Integer, Page> pages = new HashMap<>();
 	private static final int aantalPages = 16;
 	
+	
 	public VirtueelGeheugen() {
 		for(int i=0; i<aantalPages; i++) {
 			Page page= new Page();
+			pages.put(i, page);
+		}
+	}
+	
+	
+	public VirtueelGeheugen(int procesNummer) {
+		for(int i=0; i<aantalPages; i++) {
+			Page page= new Page(procesNummer);
 			pages.put(i, page);
 		}
 	}

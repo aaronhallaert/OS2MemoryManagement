@@ -16,11 +16,20 @@ public class Page {
 			geheugenPlaatsen.put(i, -1);
 		}
 	}
+	
+	public Page(int procesNummer) {
+		procesId=procesNummer;
+		for(int i=0; i< grootte; i++) {
+			geheugenPlaatsen.put(i, -1);
+		}
+	}
 
 
 	public int getProcessId() {
 		return procesId;
 	}
+	
+	
 
 
 	public Map<Integer, Integer> getGeheugenPlaatsen() {

@@ -24,6 +24,8 @@ public class RAM {
 	//toestandsvariabelen van het ram (om eenvoudig te beredeneren)
 	private int aantalProcessenAanwezig; // maximum 4
 	
+	
+	public static int grootte=12;
 	//welke processen aanwezig? de ids bijhouden?
 	
 	public RAM() {

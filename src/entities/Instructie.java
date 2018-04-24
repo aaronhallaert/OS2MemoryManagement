@@ -97,9 +97,9 @@ public class Instructie {
 						else if (aantalProcessenInRam ==0) {
 							//alle pages van het ram worden aan het process toegekend
 							
-							//1) process: de page table aanpassen
+							//process: de page table aanpassen
 								PTEntry ptEntry;
-								for(int i =0; i<12; i++) {
+								for(int i =0; i<ram.grootte; i++) {
 									ptEntry=new PTEntry();
 									ptEntry.setFrameNr(i);
 									ptEntry.setPageNr(i);
@@ -108,13 +108,13 @@ public class Instructie {
 									
 									// toevoegen van pageTableEntry aan pagetable
 									huidigProces.getPageTable().add(ptEntry);
-									
+									ram.laadPageIn(huidigProces.getPage(i), i);
 								}
 								
-							//2) effectief de pages naar het ram inladen 
-								//enkel nodig als we swappen en dit doen we hier eigelijk niet
 								
-							//3) aantalprocessen in ram updaten
+					
+								
+							//aantalprocessen in ram updaten
 								ram.setAantalProcessenAanwezig(aantalProcessenInRam++);
 									
 						}

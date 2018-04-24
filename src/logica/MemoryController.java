@@ -26,7 +26,7 @@ public class MemoryController {
 	
 	//zorgen dat in de default constructors de juiste dingen qua paging al geset zijn
 	public static RAM ram=new RAM();
-	public static VirtueelGeheugen virtueelGeheugen= new VirtueelGeheugen();
+	
 	
 	//per uitgevoerde instructie wordt de klok met 1 opgehoogd
 	public static int klok = 0;

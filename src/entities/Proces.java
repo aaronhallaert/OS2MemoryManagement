@@ -24,7 +24,12 @@ public class Proces {
 	public Proces(int pid) {
 		pageTable = new ArrayList<PTEntry>(16);
 		this.pid=pid;
-		vm= new VirtueelGeheugen();
+		vm= new VirtueelGeheugen(pid);
+	}
+	
+	
+	public Page getPage(int pagenummer) {
+		return vm.getPage(pagenummer);
 	}
 	
 	
