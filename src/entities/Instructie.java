@@ -1,6 +1,9 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -88,9 +91,59 @@ public class Instructie {
 						break;
 			
 		case "Start":	System.out.println("start");
-						aantalProcessenInRam = ram.getAantalProcessenAanwezig();
+						aantalProcessenInRam = MemoryController.ram.getAantalProcessenAanwezig();
 
-						if(aantalProcessenInRam == 1) {}
+					
+						
+						// er is reeds een proces aanwezig
+						if(aantalProcessenInRam == 1) {
+							System.out.println("er is al een proces aanwezig");
+							List<Integer> lruFrames=new ArrayList<Integer>();
+							
+							// alle lijsten van lru frames per proces
+							Map<Integer, List<Integer>> lruFramesPerProces= new HashMap<Integer, List<Integer>>();
+							
+							lruFramesPerProces=MemoryController.getLRUFramesVanAlleProcessen(lruFramesPerProces, 6);
+							
+							
+							for(int i= 0; i<lruFramesPerProces.size(); i++) {
+								for(int j= 1; j<lruFramesPerProces.get(0).size();j++) {
+									lruFrames.add(lruFramesPerProces.get(0).get(j));
+								}
+							}
+							
+							
+							
+							// frames wegschrijven indien modified
+							// page table van uitgeworpen proces correct zetten
+							
+							
+							
+							
+							
+							// inladen nieuw proces
+						
+							PTEntry ptEntry;
+							for(int i=0; i<lruFrames.size();i++) {
+								ptEntry=new PTEntry();
+								ptEntry.setFrameNr(lruFrames.get(i));
+								ptEntry.setPageNr(i);
+								ptEntry.setPresent(true);
+								ptEntry.setLaatsteKeerGebruikt(klok);
+								huidigProces.getPageTable().add(ptEntry);
+								// laad ide pagina van huidig proces in
+								ram.laadPageIn(huidigProces.getPage(i), lruFrames.get(i));
+							}
+							
+							huidigProces.printPageTable();
+							
+							
+							
+							
+							
+							ram.setAantalProcessenAanwezig((aantalProcessenInRam+1));
+							
+						}
 						else if (aantalProcessenInRam == 2) {}
 						else if (aantalProcessenInRam ==3) {}
 						else if (aantalProcessenInRam ==4) {}
@@ -117,7 +170,7 @@ public class Instructie {
 					
 								
 							//aantalprocessen in ram updaten
-								ram.setAantalProcessenAanwezig(aantalProcessenInRam++);
+								ram.setAantalProcessenAanwezig((aantalProcessenInRam+1));
 									
 						}
 						break;

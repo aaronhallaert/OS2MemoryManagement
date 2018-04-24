@@ -45,6 +45,10 @@ public class RAM {
 		}	
 	}
 
+	
+	public Map<Integer, Frame> getFrames(){
+		return frames;
+	}
 
 	public int getAantalProcessenAanwezig() {
 		return aantalProcessenAanwezig;
