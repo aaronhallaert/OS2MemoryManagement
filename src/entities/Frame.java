@@ -93,6 +93,13 @@ public class Frame {
 		this.procesnummer=p.getProcessId();
 		bevatPage=true;
 	}
+
+
+
+	public void schrijf(int offset, int i) {
+		//geheugenplek schrijven
+		geheugenPlaatsen.put(offset, i);
+	}
 	
 	
 }

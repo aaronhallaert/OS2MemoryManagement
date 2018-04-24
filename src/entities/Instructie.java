@@ -76,16 +76,39 @@ public class Instructie {
 						
 		
 						List<Integer> adres= splitsDecimaalAdresOp(virtueelAdres);
+						
+						//paginanummer en offset van het adres dat we moeten schrijven
 						int pagenummer= adres.get(0);
 						int offset= adres.get(1);
+						
 						System.out.println("pagenummer: "+pagenummer);
 						System.out.println("offset: "+offset);
 						
 						if(huidigProces.getPageTable().get(pagenummer).isPresent()) {
-							System.out.println("zit er in");
+							System.out.println("huidige pagina is aanwezig");
+							
+							//huidig frame zoeken in de pageTable
+							PTEntry pte = huidigProces.getPageTable().get(pagenummer);
+							int framenummer = pte.getFrameNr();
+							Frame f = ram.getFrame(framenummer);
+							
+							//schrijf op die offset het willekeurig gegenereerd getal
+							f.schrijf(offset, (int)(Math.random()*50));
+							
+							//set modified en zet huidige tijd
+							pte.setModified(true);
+							pte.setLaatsteKeerGebruikt(klok);
+							
 						}
-			
-		
+						
+						else {
+							//laadt de pagina in
+							//swap de minst gebruikte pagina die aanwezig is van het huidig proces
+							//met de pagina die opgevraagd wordt
+							
+							//daarna toch gewoon schrijven
+						}
+						huidigProces.printPageTable();
 		
 						break;
 			
