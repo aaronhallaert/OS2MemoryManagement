@@ -164,230 +164,16 @@ public class Instructie {
 						
 						// er is reeds een proces aanwezig
 						if(aantalProcessenInRam == 1) {
-							System.out.println("er is al een proces aanwezig");
-							List<Integer> lruFrames=new ArrayList<Integer>();
-							
-							// alle lijsten van lru frames per proces
-							Map<Integer, List<Integer>> lruFramesPerProces= new HashMap<Integer, List<Integer>>();
-							
-							lruFramesPerProces=MemoryController.getLRUFramesVanAlleProcessen(lruFramesPerProces, 6);
-							
-							
-							for(int i= 0; i<lruFramesPerProces.size(); i++) {
-								for(int j= 1; j<lruFramesPerProces.get(0).size();j++) {
-									lruFrames.add(lruFramesPerProces.get(0).get(j));
-								}
-							}
-							
-							
-							
-							// frames wegschrijven indien modified
-						
-							
-							for(int i= 0; i<lruFramesPerProces.size(); i++) {
-								List<Integer> lruFramesVanProces= lruFramesPerProces.get(i);
-								Proces p= processen.get(lruFramesVanProces.get(0));
-								for(int j=1; j<lruFramesVanProces.size();j++) {
-									// paginanummer horend bij frame
-									int paginanummer=p.getPageIdByFrameNummer(lruFramesVanProces.get(j));
-									// page table entry van paginanummer
-									PTEntry pteProces= p.getPageTable().get(paginanummer);
-									
-									// als frame is aangepast, schrijf frame naar pagina in vm
-									if(pteProces.isModified()) {
-										System.out.println("Wegschrijven van aangepaste frames");
-										// frame meegeven en paginanummer
-										p.schrijfNaarVM(ram.getFrame(lruFramesVanProces.get(i)).getGeheugenPlaatsen(), paginanummer);
-									}
-									else {
-										System.out.println("Er hoeft niets weggeschreven te worden");
-									}
-									
-									
-									// page table aanpassen van uitgeworpen proces
-									PTEntry ptEntry1;
-									
-									ptEntry1=p.getPageTable().get(paginanummer);
-									ptEntry1.setFrameNr(-1);
-									ptEntry1.setPresent(false);
-									
-									
-								}	
-							}
-						
-							// inladen nieuw proces
-						
-							PTEntry ptEntry2;
-							for(int i=0; i<lruFrames.size();i++) {
-								ptEntry2=huidigProces.getPageTable().get(i);
-								ptEntry2.setFrameNr(lruFrames.get(i));
-								
-								ptEntry2.setPresent(true);
-								ptEntry2.setLaatsteKeerGebruikt(klok);
-								
-								// laad ide pagina van huidig proces in
-								ram.laadPageIn(huidigProces.getPage(i), lruFrames.get(i));
-							}
-							
-							
-							
-							
-							
-							
-							ram.setAantalProcessenAanwezig((aantalProcessenInRam+1));
+							startProces(1, 6, huidigProces);
 							
 						}
 						else if (aantalProcessenInRam == 2) {
-							System.out.println("Er zijn al 2 processen aanwezig");
-							
-							
-							List<Integer> lruFrames=new ArrayList<Integer>();
-							
-							// alle lijsten van lru frames per proces
-							Map<Integer, List<Integer>> lruFramesPerProces= new HashMap<Integer, List<Integer>>();
-							
-							lruFramesPerProces=MemoryController.getLRUFramesVanAlleProcessen(lruFramesPerProces, 2);
-							
-							// samenvoegen van alle lru frames
-							for(int i= 0; i<lruFramesPerProces.size(); i++) {
-								for(int j= 1; j<lruFramesPerProces.get(i).size();j++) {
-									lruFrames.add(lruFramesPerProces.get(i).get(j));
-								}
-							}
-							
-							
-							// frames wegschrijven indien modified
-						
-							
-							for(int i= 0; i<lruFramesPerProces.size(); i++) {
-								List<Integer> lruFramesVanProces= lruFramesPerProces.get(i);
-								Proces p= processen.get(lruFramesVanProces.get(0));
-								for(int j=1; j<lruFramesVanProces.size();j++) {
-									// paginanummer horend bij frame
-									int paginanummer=p.getPageIdByFrameNummer(lruFramesVanProces.get(j));
-									// page table entry van paginanummer
-									PTEntry pteProces= p.getPageTable().get(paginanummer);
-									
-									// als frame is aangepast, schrijf frame naar pagina in vm
-									if(pteProces.isModified()) {
-										System.out.println("Wegschrijven van aangepaste frames");
-										// frame meegeven en paginanummer
-										p.schrijfNaarVM(ram.getFrame(lruFramesVanProces.get(i)).getGeheugenPlaatsen(), paginanummer);
-									}
-									else {
-										System.out.println("Er hoeft niets weggeschreven te worden");
-									}
-									
-									
-									// page table aanpassen van uitgeworpen proces
-									PTEntry ptEntry1;
-									
-									ptEntry1=p.getPageTable().get(paginanummer);
-									ptEntry1.setFrameNr(-1);
-									ptEntry1.setPresent(false);
-									
-									
-								}	
-							}
-						
-							// inladen nieuw proces
-						
-							PTEntry ptEntry2;
-							for(int i=0; i<lruFrames.size();i++) {
-								ptEntry2=huidigProces.getPageTable().get(i);
-								ptEntry2.setFrameNr(lruFrames.get(i));
-								
-								ptEntry2.setPresent(true);
-								ptEntry2.setLaatsteKeerGebruikt(klok);
-								
-								// laad ide pagina van huidig proces in
-								ram.laadPageIn(huidigProces.getPage(i), lruFrames.get(i));
-							}
-							
-							
-							
-							
-							
-							
-							ram.setAantalProcessenAanwezig((aantalProcessenInRam+1));
+							startProces(2, 2, huidigProces);
 							
 						}
 						else if (aantalProcessenInRam ==3) {
-							System.out.println("3 processen reeds aanwezig");
 							
-							List<Integer> lruFrames=new ArrayList<Integer>();
-							
-							// alle lijsten van lru frames per proces
-							Map<Integer, List<Integer>> lruFramesPerProces= new HashMap<Integer, List<Integer>>();
-							
-							//van elk 4 paginas naar elk 3 paginas, dwz elk 1 pagina afstaan
-							lruFramesPerProces=MemoryController.getLRUFramesVanAlleProcessen(lruFramesPerProces, 1);
-							
-							// samenvoegen van alle lru frames
-							for(int i= 0; i<lruFramesPerProces.size(); i++) {
-								for(int j= 1; j<lruFramesPerProces.get(i).size();j++) {
-									lruFrames.add(lruFramesPerProces.get(i).get(j));
-								}
-							}
-							
-							
-							// frames wegschrijven indien modified
-						
-							
-							for(int i= 0; i<lruFramesPerProces.size(); i++) {
-								List<Integer> lruFramesVanProces= lruFramesPerProces.get(i);
-								Proces p= processen.get(lruFramesVanProces.get(0));
-								for(int j=1; j<lruFramesVanProces.size();j++) {
-									// paginanummer horend bij frame
-									int paginanummer=p.getPageIdByFrameNummer(lruFramesVanProces.get(j));
-									// page table entry van paginanummer
-									PTEntry pteProces= p.getPageTable().get(paginanummer);
-									
-									// als frame is aangepast, schrijf frame naar pagina in vm
-									if(pteProces.isModified()) {
-										System.out.println("Wegschrijven van aangepaste frames");
-										// frame meegeven en paginanummer
-										p.schrijfNaarVM(ram.getFrame(lruFramesVanProces.get(i)).getGeheugenPlaatsen(), paginanummer);
-									}
-									else {
-										System.out.println("Er hoeft niets weggeschreven te worden");
-									}
-									
-									
-									// page table aanpassen van uitgeworpen proces
-									PTEntry ptEntry1;
-									
-									ptEntry1=p.getPageTable().get(paginanummer);
-									ptEntry1.setFrameNr(-1);
-									ptEntry1.setPresent(false);
-									
-									
-								}	
-							}
-						
-							// inladen nieuw proces
-						
-							PTEntry ptEntry2;
-							for(int i=0; i<lruFrames.size();i++) {
-								ptEntry2=huidigProces.getPageTable().get(i);
-								ptEntry2.setFrameNr(lruFrames.get(i));
-								
-								ptEntry2.setPresent(true);
-								ptEntry2.setLaatsteKeerGebruikt(klok);
-								
-								// laad ide pagina van huidig proces in
-								ram.laadPageIn(huidigProces.getPage(i), lruFrames.get(i));
-							}
-							
-							
-							
-							
-							
-							
-							ram.setAantalProcessenAanwezig((aantalProcessenInRam+1));
-							
-							
-							
+							startProces(3, 1, huidigProces);
 							
 							
 							
@@ -464,4 +250,86 @@ public class Instructie {
 		return list;
 		
 	}
+	
+	
+
+private void startProces(int aantalProcessenInRam, int aantalPagesAfstaanPerProces, Proces huidigProces) {
+	System.out.println(aantalProcessenInRam+" processen reeds aanwezig");
+	
+	List<Integer> lruFrames=new ArrayList<Integer>();
+	
+	// alle lijsten van lru frames per proces
+	Map<Integer, List<Integer>> lruFramesPerProces= new HashMap<Integer, List<Integer>>();
+	
+	//van elk 4 paginas naar elk 3 paginas, dwz elk 1 pagina afstaan
+	lruFramesPerProces=MemoryController.getLRUFramesVanAlleProcessen(lruFramesPerProces, aantalPagesAfstaanPerProces);
+	
+	// samenvoegen van alle lru frames
+	for(int i= 0; i<lruFramesPerProces.size(); i++) {
+		for(int j= 1; j<lruFramesPerProces.get(i).size();j++) {
+			lruFrames.add(lruFramesPerProces.get(i).get(j));
+		}
+	}
+	
+	
+	// frames wegschrijven indien modified
+
+	
+	for(int i= 0; i<lruFramesPerProces.size(); i++) {
+		List<Integer> lruFramesVanProces= lruFramesPerProces.get(i);
+		Proces p= MemoryController.processen.get(lruFramesVanProces.get(0));
+		for(int j=1; j<lruFramesVanProces.size();j++) {
+			// paginanummer horend bij frame
+			int paginanummer=p.getPageIdByFrameNummer(lruFramesVanProces.get(j));
+			// page table entry van paginanummer
+			PTEntry pteProces= p.getPageTable().get(paginanummer);
+			
+			// als frame is aangepast, schrijf frame naar pagina in vm
+			if(pteProces.isModified()) {
+				System.out.println("Wegschrijven van aangepaste frames");
+				// frame meegeven en paginanummer
+				p.schrijfNaarVM(MemoryController.ram.getFrame(lruFramesVanProces.get(i)).getGeheugenPlaatsen(), paginanummer);
+			}
+			else {
+				System.out.println("Er hoeft niets weggeschreven te worden");
+			}
+			
+			
+			// page table aanpassen van uitgeworpen proces
+			PTEntry ptEntry1;
+			
+			ptEntry1=p.getPageTable().get(paginanummer);
+			ptEntry1.setFrameNr(-1);
+			ptEntry1.setPresent(false);
+			
+			
+		}	
+	}
+
+	// inladen nieuw proces
+
+	PTEntry ptEntry2;
+	for(int i=0; i<lruFrames.size();i++) {
+		ptEntry2=huidigProces.getPageTable().get(i);
+		ptEntry2.setFrameNr(lruFrames.get(i));
+		
+		ptEntry2.setPresent(true);
+		ptEntry2.setLaatsteKeerGebruikt(MemoryController.klok);
+		
+		// laad ide pagina van huidig proces in
+		MemoryController.ram.laadPageIn(huidigProces.getPage(i), lruFrames.get(i));
+	}
+	
+	
+	
+	
+	
+	
+	MemoryController.ram.setAantalProcessenAanwezig((aantalProcessenInRam+1));
+	
+	
 }
+	
+	
+}
+
