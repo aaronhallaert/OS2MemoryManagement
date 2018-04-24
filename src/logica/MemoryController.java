@@ -43,8 +43,8 @@ public class MemoryController {
 	 * inlezen van XML file
 	 */
 	public static void instantiate() {
-	String pad="D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Memory Management Opdracht\\virtual memory\\Instructions_30_3.xml";
-	//String pad="C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\Instructions_30_3.xml";
+	//String pad="D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Memory Management Opdracht\\virtual memory\\Instructions_30_3.xml";
+	String pad="C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\Instructions_30_3.xml";
 	
 	DataProcessing.findInstructies(pad, instructies, processen);	
 	
@@ -63,12 +63,7 @@ public class MemoryController {
 		if(!instructies.isEmpty()) {
 			Instructie iTemp;
 			iTemp= instructies.pollFirst();
-			
-			
 			iTemp.execute();
-		
-			//instructie uitgevoerd
-			//klok 1 omhoog
 			klok++;
 			
 		}

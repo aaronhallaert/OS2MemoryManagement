@@ -106,6 +106,12 @@ public class Frame {
 		//geheugenplek schrijven
 		geheugenPlaatsen.put(offset, i);
 	}
+
+
+
+	public int lees(int offset) {
+		return geheugenPlaatsen.get(offset);
+	}
 	
 	
 }

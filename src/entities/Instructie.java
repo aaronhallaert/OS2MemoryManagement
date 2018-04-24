@@ -68,20 +68,78 @@ public class Instructie {
 		
 		
 		Proces huidigProces= processen.get(pid);
+		List<Integer> adres;
+		int pagenummer;
+		int offset;
+		int framenummer;
+		Frame f;
+		PTEntry pte;
 		
 		//effectieve uitvoeren van de instructie
 		switch(operatie) {
 		case "Read" :	System.out.println("read");
+		
+						// moet er niet ook vooraf gechechkt worden als het process uberhaupt aanwezig is?
+						//wel voor de set van 20processen
+		
+						adres = splitsDecimaalAdresOp(virtueelAdres);
+						
+						//paginanummer en offset van het adres dat we moeten schrijven
+						pagenummer= adres.get(0);
+						offset= adres.get(1);
+		
+						//checken als de pagina die we willen lezen van het huidige proces al aanwezig is in ram
+						if(!huidigProces.getPageTable().get(pagenummer).isPresent()) {
+							
+							
+							
+							//als de pagina niet aanwezig is, eerst swappen voor de LRU pagina die wel al aanwezig is in het proces
+							int frameNummerWeg = MemoryController.getLRUFrameVanProces(huidigProces.getPid());								
+							int pageNummerWeg = huidigProces.getPageIdByFrameNummer(frameNummerWeg);
+							
+							//bij het wegschrijven moet deze pagina enkel upgedate worden naar VM als hij aangepast is
+							if(huidigProces.getPageTable().get(pageNummerWeg).isModified()) {
+								//oude pagina wegschrijven
+								huidigProces.schrijfNaarVM(ram.getFrame(frameNummerWeg).getGeheugenPlaatsen(), pageNummerWeg);
+							}
+							
+							//preprocessing voor we van vm --> ram schrijven
+							huidigProces.getPageTable().get(pageNummerWeg).setPresent(false);
+							huidigProces.getPageTable().get(pageNummerWeg).setFrameNr(-1);
+							
+							//schrijf de page van vm --> ram
+							ram.laadPageIn(huidigProces.getPage(pagenummer), frameNummerWeg);
+
+							
+							// pas waardes aan
+							huidigProces.getPageTable().get(pagenummer).setPresent(true);
+							huidigProces.getPageTable().get(pagenummer).setLaatsteKeerGebruikt(klok);
+							huidigProces.getPageTable().get(pagenummer).setFrameNr(frameNummerWeg);
+							
+								
+								
+						}
+						
+						//3) de pagina zit nu sws in ram, de int lezen
+						//huidig frame zoeken in de pageTable
+						pte = huidigProces.getPageTable().get(pagenummer);
+						framenummer = pte.getFrameNr();
+						f = ram.getFrame(framenummer);
+						
+						//schrijf op die offset het willekeurig gegenereerd getal
+						int a = f.lees(offset);
+						huidigProces.getPageTable().get(pagenummer).setModified(true);
+						
 						break;
 			
 		case "Write":	System.out.println("write");
 						
 		
-						List<Integer> adres= splitsDecimaalAdresOp(virtueelAdres);
+						adres= splitsDecimaalAdresOp(virtueelAdres);
 						
 						//paginanummer en offset van het adres dat we moeten schrijven
-						int pagenummer= adres.get(0);
-						int offset= adres.get(1);
+						pagenummer= adres.get(0);
+						offset= adres.get(1);
 						
 						Main.log(Level.INFO, "Proces "+ huidigProces.getPid()+ " write naar page "+pagenummer+" met offset "+ offset);
 						
@@ -89,9 +147,9 @@ public class Instructie {
 							Main.log(Level.INFO, "Pagina "+pagenummer+" van proces "+huidigProces.getPid()+" is aanwezig");
 							
 							//huidig frame zoeken in de pageTable
-							PTEntry pte = huidigProces.getPageTable().get(pagenummer);
-							int framenummer = pte.getFrameNr();
-							Frame f = ram.getFrame(framenummer);
+							pte = huidigProces.getPageTable().get(pagenummer);
+							framenummer = pte.getFrameNr();
+							f = ram.getFrame(framenummer);
 							
 							//schrijf op die offset het willekeurig gegenereerd getal
 							f.schrijf(offset, (int)(Math.random()*50));
@@ -122,7 +180,7 @@ public class Instructie {
 							huidigProces.getPageTable().get(pageNummerWeg).setFrameNr(-1);
 							
 							
-							//schrijf de page naar ram
+							//schrijf de page van vm --> ram
 							ram.laadPageIn(huidigProces.getPage(pagenummer), frameNummerWeg);
 							
 							//als de pagetable al een entry heeft gehad : de pagina is al gealloceerd geweest in RAM
@@ -139,9 +197,9 @@ public class Instructie {
 							
 							//schrijven
 							//huidig frame zoeken in de pageTable
-							PTEntry pte = huidigProces.getPageTable().get(pagenummer);
-							int framenummer = pte.getFrameNr();
-							Frame f = ram.getFrame(framenummer);
+							pte = huidigProces.getPageTable().get(pagenummer);
+							framenummer = pte.getFrameNr();
+							f = ram.getFrame(framenummer);
 							
 							//schrijf op die offset het willekeurig gegenereerd getal
 							f.schrijf(offset, (int)(Math.random()*50));
@@ -160,8 +218,6 @@ public class Instructie {
 		case "Start":	System.out.println("start");
 						aantalProcessenInRam = MemoryController.ram.getAantalProcessenAanwezig();
 
-					
-						
 						// er is reeds een proces aanwezig
 						if(aantalProcessenInRam == 1) {
 							startProces(1, 6, huidigProces);

@@ -149,7 +149,8 @@ public class HoofdMenuController {
 	private void updateLogTextArea() {
 		try
         {
-            FileReader reader = new FileReader("D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Workspace_Besturingssystemen2\\MemoryManagement\\logger.log");
+            //FileReader reader = new FileReader("D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Workspace_Besturingssystemen2\\MemoryManagement\\logger.log");
+            FileReader reader = new FileReader("C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\logger.log");
             BufferedReader in = new BufferedReader(reader);
             String line = in.readLine();
             
