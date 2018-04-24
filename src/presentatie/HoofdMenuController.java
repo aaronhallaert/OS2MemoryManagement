@@ -49,6 +49,10 @@ public class HoofdMenuController {
 	 Text procesFrame10;
 	 @FXML
 	 Text procesFrame11;
+	 
+	 //visualisatie van de klok
+	 @FXML
+	 Text klok;
 	
 	 public HoofdMenuController() {
 		 
@@ -88,6 +92,7 @@ public class HoofdMenuController {
 		// volgende instructie
 		MemoryController.voerVolgendeInstructieUit();
 		updateVisualisatieRam();
+		klok.setText(Integer.toString(MemoryController.klok));
 	}
 	
 	
@@ -113,5 +118,6 @@ public class HoofdMenuController {
 		
 		
 	}
+
 	
 }
