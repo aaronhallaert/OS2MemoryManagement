@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import application.Main;
+import javafx.scene.control.Label;
+
 public class Proces {
 
 	private VirtueelGeheugen vm;
@@ -86,16 +89,23 @@ public class Proces {
 	
 	
 	public void printPageTable() {
-		System.out.println("----------------------------- PageTabel proces "+ this.getPid()+" --------------------------------------------------");
-		System.out.println("---------------------------------------------------------------------------------------------------");
-		System.out.println("\t Page Nummer \t || Frame Nummer \t || Last Time Accessed \t || Present  \t || Modified");
+		Label x= (Label) Main.getScene().lookup("#PTproces"+this.getPid());
+		StringBuilder sb=new StringBuilder();
+		
+		sb.append("----------------------------- PageTabel proces "+ this.getPid()+" -------------------------------------------------- \n");
+		sb.append("--------------------------------------------------------------------------------------------------- \n");
+		sb.append("\t Page Nummer \t || Frame Nummer \t || Last Time Accessed \t || Present  \t || Modified \n");
 		for(int i=0; i<this.getPageTable().size();i++) {
-			System.out.println("\t "+this.getPageTable().get(i).getPageNr()+" \t\t || " + this.getPageTable().get(i).getFrameNr()+" \t\t\t || "
-		+ this.getPageTable().get(i).getLaatsteKeerGebruikt()+ " \t\t\t || " + this.getPageTable().get(i).isPresent()+ " \t || " + this.getPageTable().get(i).isModified());
+			sb.append("\t "+this.getPageTable().get(i).getPageNr()+"\t\t\t\t || " + this.getPageTable().get(i).getFrameNr()+"\t\t\t\t || "
+		+ this.getPageTable().get(i).getLaatsteKeerGebruikt()+ "\t\t\t\t\t || " + this.getPageTable().get(i).isPresent()+ "\t\t || " + this.getPageTable().get(i).isModified()+"\n");
 		}
 		
-		System.out.println("---------------------------------------------------------------------------------------------------");
-		System.out.println("---------------------------------------------------------------------------------------------------");
+		sb.append("--------------------------------------------------------------------------------------------------- \n");
+		sb.append("--------------------------------------------------------------------------------------------------- \n");
+		
+		
+		
+		x.setText(sb.toString());
 	}
 
 

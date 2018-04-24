@@ -10,8 +10,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import logica.MemoryController;
 
@@ -21,6 +26,8 @@ public class HoofdMenuController {
 	 @FXML
 	 private Button readXML;
 	 
+	 @FXML 
+	 private BorderPane borderPane;
 	 @FXML 
 	 private Button volgendeInstructie;
 	 
@@ -50,6 +57,10 @@ public class HoofdMenuController {
 	 @FXML
 	 Text procesFrame11;
 	 
+	 
+	 @FXML
+	 Accordion pageTables;
+	 
 	 //visualisatie van de klok
 	 @FXML
 	 Text klok;
@@ -67,8 +78,20 @@ public class HoofdMenuController {
 		// XML file inlezen
 		MemoryController.instantiate();
 		setFrames();
-		
-		
+		for(int i=0; i<MemoryController.processen.size();i++)
+		{
+			
+			AnchorPane newPanelContent = new AnchorPane();
+			Label x= new Label("---");
+			x.setId("PTproces"+i);
+	        newPanelContent.getChildren().add(x);
+			TitledPane tp= new TitledPane("", newPanelContent);
+			tp.setText("proces"+i);
+			pageTables.getPanes().add(tp);
+			
+			
+			
+		}
 			
 	}
 	

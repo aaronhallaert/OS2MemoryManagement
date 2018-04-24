@@ -47,4 +47,8 @@ public class Main extends Application {
 		
 		
 	}
+	
+	public static Scene getScene() {
+		return scene;
+	}
 }
