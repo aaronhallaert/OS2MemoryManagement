@@ -116,6 +116,9 @@ public class HoofdMenuController {
 		MemoryController.voerVolgendeInstructieUit();
 		updateVisualisatieRam();
 		klok.setText(Integer.toString(MemoryController.klok));
+		for(int i=0; i<MemoryController.processen.size();i++) {
+			MemoryController.processen.get(i).printPageTable();
+		}
 	}
 	
 	
