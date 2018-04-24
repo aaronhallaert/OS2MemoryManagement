@@ -83,6 +83,7 @@ public class Instructie {
 						
 						System.out.println("pagenummer: "+pagenummer);
 						System.out.println("offset: "+offset);
+										
 						
 						if(huidigProces.getPageTable().get(pagenummer).isPresent()) {
 							System.out.println("huidige pagina is aanwezig");
@@ -101,13 +102,54 @@ public class Instructie {
 							
 						}
 						
+						
+						//als de pagina niet aanwezig is --> swapping nodig
 						else {
-							//laadt de pagina in
-							//swap de minst gebruikte pagina die aanwezig is van het huidig proces
-							//met de pagina die opgevraagd wordt
 							
-							//daarna toch gewoon schrijven
+							
+							//**************
+							// oude page van proces eruit halen
+							//***************
+							//page en framenummer van het proces dat weg moet
+							int frameNummerWeg = MemoryController.getLRUFrameVanProces(huidigProces.getPid());								
+							int pageNummerWeg = huidigProces.getPageIdByFrameNummer(frameNummerWeg);
+								
+							if(huidigProces.getPageTable().get(pageNummerWeg).isModified()) {
+								//oude pagina wegschrijven
+								huidigProces.schrijfNaarVM(ram.getFrame(frameNummerWeg).getGeheugenPlaatsen(), pageNummerWeg);
+							}
+							huidigProces.getPageTable().get(pageNummerWeg).setPresent(false);
+							huidigProces.getPageTable().get(pageNummerWeg).setFrameNr(-1);
+							
+							
+							//schrijf de page naar ram
+							ram.laadPageIn(huidigProces.getPage(pagenummer), frameNummerWeg);
+							
+							//als de pagetable al een entry heeft gehad : de pagina is al gealloceerd geweest in RAM
+									//  ---> pagetable aanpassen
+							
+								// pas waardes aan
+								huidigProces.getPageTable().get(pagenummer).setPresent(true);
+								huidigProces.getPageTable().get(pagenummer).setLaatsteKeerGebruikt(klok);
+								huidigProces.getPageTable().get(pagenummer).setFrameNr(frameNummerWeg);
+								
+							
+							
+							
+							
+							//schrijven
+							//huidig frame zoeken in de pageTable
+							PTEntry pte = huidigProces.getPageTable().get(pagenummer);
+							int framenummer = pte.getFrameNr();
+							Frame f = ram.getFrame(framenummer);
+							
+							//schrijf op die offset het willekeurig gegenereerd getal
+							f.schrijf(offset, (int)(Math.random()*50));
+							huidigProces.getPageTable().get(pagenummer).setModified(true);
+							
+							
 						}
+						
 						huidigProces.printPageTable();
 		
 						break;
@@ -196,12 +238,12 @@ public class Instructie {
 						
 							PTEntry ptEntry2;
 							for(int i=0; i<lruFrames.size();i++) {
-								ptEntry2=new PTEntry();
+								ptEntry2=huidigProces.getPageTable().get(i);
 								ptEntry2.setFrameNr(lruFrames.get(i));
-								ptEntry2.setPageNr(i);
+								
 								ptEntry2.setPresent(true);
 								ptEntry2.setLaatsteKeerGebruikt(klok);
-								huidigProces.getPageTable().add(ptEntry2);
+								
 								// laad ide pagina van huidig proces in
 								ram.laadPageIn(huidigProces.getPage(i), lruFrames.get(i));
 							}
@@ -224,15 +266,15 @@ public class Instructie {
 							//process: de page table aanpassen
 								PTEntry ptEntry;
 								for(int i =0; i<ram.grootte; i++) {
-									ptEntry=new PTEntry();
+									ptEntry=huidigProces.getPageTable().get(i);
 									ptEntry.setFrameNr(i);
-									ptEntry.setPageNr(i);
+									
 									ptEntry.setPresent(true);
 									ptEntry.setLaatsteKeerGebruikt(klok);
 									
 									
-									// toevoegen van pageTableEntry aan pagetable
-									huidigProces.getPageTable().add(ptEntry);
+									
+									
 									ram.laadPageIn(huidigProces.getPage(i), i);
 								}
 								huidigProces.printPageTable();

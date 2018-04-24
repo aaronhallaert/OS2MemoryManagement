@@ -37,9 +37,7 @@ public class PTEntry {
 	public int getPageNr() {
 		return pageNr;
 	}
-	public void setPageNr(int pageNr) {
-		this.pageNr = pageNr;
-	}
+	
 
 	public boolean isPresent() {
 		return present;

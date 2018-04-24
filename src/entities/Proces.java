@@ -25,6 +25,9 @@ public class Proces {
 	
 	public Proces(int pid) {
 		pageTable = new ArrayList<PTEntry>(16);
+		for(int i=0; i<16; i++) {
+			pageTable.add(new PTEntry(i, false, false, -1, -1));
+		}
 		this.pid=pid;
 		vm= new VirtueelGeheugen(pid);
 	}
@@ -66,18 +69,18 @@ public class Proces {
 		// een page in het ram heeft op frame i. We willen gewoon weten welke frame
 		
 		//pageTable doorlopen
-		int frameNummer=-1;
+		int pageNummer=-1;
 		
 		for(PTEntry pte : pageTable) {
 			if (pte.getFrameNr()==i) {
-				frameNummer = i;
+				pageNummer = pte.getPageNr();
 			}
 		}
 		
-		if(frameNummer == -1) {System.out.println("dit process bevat geen overeenkomstige page");
+		if(pageNummer == -1) {System.out.println("dit process bevat geen overeenkomstige page");
 								System.out.println("process::getPageIdByFrameNummer");}
 		
-		return frameNummer;
+		return pageNummer;
 		
 	}
 	

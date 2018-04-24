@@ -131,7 +131,7 @@ public class MemoryController {
 			
 			
 			//page table opvragen
-			List<PTEntry> pageTable= aanwezigeProcessen.get(i).getPageTable();	
+			List<PTEntry> pageTable= new ArrayList<PTEntry>(aanwezigeProcessen.get(i).getPageTable());	
 			
 			// sorteren volgens LRU
 			Collections.sort(pageTable, new Comparator<PTEntry>() {
@@ -155,6 +155,36 @@ public class MemoryController {
 		}
 		
 		return lruFramesPerProces;
+	}
+
+	
+
+	public static int getLRUFrameVanProces(int pid) {
+		
+		//opvragen van alle frames van het huidige proces
+		Proces p = processen.get(pid);
+		
+		//new maken omdat de pagetable niet gesorteerd zou worden
+		List<PTEntry> pageTable = new ArrayList<>(p.getPageTable());
+		
+		Collections.sort(pageTable, new Comparator<PTEntry>() {
+			public int compare(PTEntry pt1, PTEntry pt2) {
+				return Integer.compare(pt1.getLaatsteKeerGebruikt(), pt2.getLaatsteKeerGebruikt());
+			}
+		});	
+		
+		List<PTEntry> truePages=new ArrayList<PTEntry>();
+		
+		for(int i=0; i<pageTable.size(); i++) {
+			if(pageTable.get(i).isPresent()) {
+				truePages.add(pageTable.get(i));
+			}
+		}
+		
+		
+		
+		//daaruit de frame halen die de laagste klokwaarde heeft
+		return truePages.get(0).getFrameNr();
 	}
 
 	

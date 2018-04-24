@@ -106,8 +106,8 @@ public class HoofdMenuController {
 				//neemt de id van de
 				int pID = MemoryController.ram.getFrame(i).getAanwezigProces();
 				Proces p = MemoryController.processen.get(pID);
-				int frameNummer = p.getPageIdByFrameNummer(i);
-				visualisatie = "proces " + pID+", page "+frameNummer;
+				int pageNummer = p.getPageIdByFrameNummer(i);
+				visualisatie = "proces " + pID+", page "+pageNummer;
 			}
 			else {
 				visualisatie ="--";
