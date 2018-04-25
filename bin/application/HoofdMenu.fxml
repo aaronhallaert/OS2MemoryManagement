@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -9,13 +10,27 @@
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentatie.HoofdMenuController">
    <left>
-      <VBox prefHeight="1000.0" prefWidth="124.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="1000.0" prefWidth="160.0" BorderPane.alignment="CENTER">
          <children>
-         		<Button mnemonicParsing="false" onAction="#setButtonLees" text="XML inlezen" />
-         		<Button mnemonicParsing="false" onAction="#setButtonVolgendeInstructieUit" text="Volgende instructie" />
-            <HBox prefHeight="44.0" prefWidth="100.0">
+         		<Button mnemonicParsing="false" onAction="#setButtonLees" prefHeight="25.0" prefWidth="116.0" text="XML inlezen">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Button>
+         		<Button mnemonicParsing="false" onAction="#setButtonVolgendeInstructieUit" prefHeight="27.0" prefWidth="117.0" text="Volgende instructie">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Button>
+            <Button fx:id="alleInstructiesEx" onAction="#setButtonAlleInstructies" mnemonicParsing="false" text="Alle Instructies exec">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <HBox alignment="CENTER" prefHeight="44.0" prefWidth="95.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="klok :" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="klok :" textAlignment="CENTER" wrappingWidth="47.755859375" />
                   <Text fx:id="klok" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="33.136722564697266" />
                </children>
             </HBox>
@@ -23,91 +38,91 @@
       </VBox>
    </left>
    <right>
-      <VBox maxHeight="1.7976931348623157E308" prefHeight="400.0" prefWidth="210.0" BorderPane.alignment="CENTER">
+      <VBox maxHeight="1.7976931348623157E308" prefHeight="1000.0" prefWidth="243.0" BorderPane.alignment="CENTER">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RAM" textAlignment="CENTER" wrappingWidth="259.693359375" />
             <ScrollPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="500.0">
               <content>
                 <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="250.0">
                      <children>
-                        <VBox prefHeight="483.0" prefWidth="249.0">
+                        <VBox layoutX="1.0" layoutY="9.0" prefHeight="483.0" prefWidth="210.0">
                            <children>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="framenummer" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="proces aanwezig" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="framenummer" textAlignment="CENTER" wrappingWidth="98.345703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="proces aanwezig" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 0" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text fx:id="procesFrame0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 0" textAlignment="CENTER" wrappingWidth="100.0" />
+                                    <Text fx:id="procesFrame0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 1" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text fx:id="procesFrame1" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 1" textAlignment="CENTER" wrappingWidth="100.0" />
+                                    <Text fx:id="procesFrame1" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 2" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text fx:id="procesFrame2" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 2" textAlignment="CENTER" wrappingWidth="100.0" />
+                                    <Text fx:id="procesFrame2" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 3" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text fx:id="procesFrame3" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 3" textAlignment="CENTER" wrappingWidth="100.0" />
+                                    <Text fx:id="procesFrame3" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 4" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text fx:id="procesFrame4" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 4" textAlignment="CENTER" wrappingWidth="100.0" />
+                                    <Text fx:id="procesFrame4" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 5" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text fx:id="procesFrame5" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 5" textAlignment="CENTER" wrappingWidth="100.0" />
+                                    <Text fx:id="procesFrame5" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 6" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text fx:id="procesFrame6" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 6" textAlignment="CENTER" wrappingWidth="100.0" />
+                                    <Text fx:id="procesFrame6" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 7" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text fx:id="procesFrame7" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 7" textAlignment="CENTER" wrappingWidth="100.0" />
+                                    <Text fx:id="procesFrame7" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 8" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text fx:id="procesFrame8" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 8" textAlignment="CENTER" wrappingWidth="100.0" />
+                                    <Text fx:id="procesFrame8" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 9" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text fx:id="procesFrame9" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 9" textAlignment="CENTER" wrappingWidth="100.0" />
+                                    <Text fx:id="procesFrame9" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 10" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text fx:id="procesFrame10" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 10" textAlignment="CENTER" wrappingWidth="100.0" />
+                                    <Text fx:id="procesFrame10" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="249.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 11" textAlignment="CENTER" wrappingWidth="128.345703125" />
-                                    <Text fx:id="procesFrame11" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.802734375" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f 11" textAlignment="CENTER" wrappingWidth="100.0" />
+                                    <Text fx:id="procesFrame11" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="140.0" />
                                  </children>
                               </HBox>
                            </children>

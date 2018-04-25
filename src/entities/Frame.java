@@ -72,6 +72,10 @@ public class Frame {
 	public int getAanwezigProces() {
 		return procesnummer;
 	}
+	
+	public void setAanwezigProces(int p) {
+		this.procesnummer=p;
+	}
 
 	
 	
@@ -110,6 +114,7 @@ public class Frame {
 
 
 	public int lees(int offset) {
+		Main.log(Level.INFO, "Er wordt gelezen in frame "+ this.framenummer+" op offset "+offset);
 		return geheugenPlaatsen.get(offset);
 	}
 	

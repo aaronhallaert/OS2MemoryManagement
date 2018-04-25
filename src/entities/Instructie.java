@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -79,18 +80,23 @@ public class Instructie {
 		switch(operatie) {
 		case "Read" :	System.out.println("read");
 		
+		
+		if(!MemoryController.ram.getAanwezigeProcessen().contains(huidigProces)) {
+			Main.log(Level.SEVERE, "ja lap, read en proces zit niet in ram");
+		}
 						// moet er niet ook vooraf gechechkt worden als het process uberhaupt aanwezig is?
-						//wel voor de set van 20processen
+						// wel voor de set van 20processen
 		
 						adres = splitsDecimaalAdresOp(virtueelAdres);
 						
 						//paginanummer en offset van het adres dat we moeten schrijven
 						pagenummer= adres.get(0);
 						offset= adres.get(1);
+						
+						Main.log(Level.INFO,"Lezen van page "+pagenummer+" met offset "+ offset +" door proces "+pid);
 		
 						//checken als de pagina die we willen lezen van het huidige proces al aanwezig is in ram
 						if(!huidigProces.getPageTable().get(pagenummer).isPresent()) {
-							
 							
 							
 							//als de pagina niet aanwezig is, eerst swappen voor de LRU pagina die wel al aanwezig is in het proces
@@ -116,8 +122,12 @@ public class Instructie {
 							huidigProces.getPageTable().get(pagenummer).setLaatsteKeerGebruikt(klok);
 							huidigProces.getPageTable().get(pagenummer).setFrameNr(frameNummerWeg);
 							
+							Main.log(Level.INFO, "Page is niet aanwezig in RAM, werd geswapt met frame "+ frameNummerWeg+ "corresponderend met page "+pageNummerWeg +" van proces " + pid+ " (het huidig proces)");
+							
 								
-								
+						}
+						else {
+							Main.log(Level.INFO, "page is aanwezig in ram op frame "+ huidigProces.getPageTable().get(pagenummer).getFrameNr());
 						}
 						
 						//3) de pagina zit nu sws in ram, de int lezen
@@ -126,15 +136,18 @@ public class Instructie {
 						framenummer = pte.getFrameNr();
 						f = ram.getFrame(framenummer);
 						
-						//schrijf op die offset het willekeurig gegenereerd getal
+						//lees op die offset het willekeurig gegenereerd getal
 						int a = f.lees(offset);
+						
 						huidigProces.getPageTable().get(pagenummer).setModified(true);
 						
 						break;
 			
 		case "Write":	System.out.println("write");
 						
-		
+		if(!MemoryController.ram.getAanwezigeProcessen().contains(huidigProces)) {
+			Main.log(Level.SEVERE, "ja lap, write en proces zit niet in ram");
+		}
 						adres= splitsDecimaalAdresOp(virtueelAdres);
 						
 						//paginanummer en offset van het adres dat we moeten schrijven
@@ -213,9 +226,43 @@ public class Instructie {
 						break;
 			
 		case "Terminate":System.out.println("terminate");
+						
+		if(!MemoryController.ram.getAanwezigeProcessen().contains(huidigProces)) {
+			Main.log(Level.SEVERE, "ja lap, terminate en proces zit niet in ram");
+		}
+		
+						List<Integer> vrijgekomenFrames= new ArrayList<>();
+						// proces eruit halen en frames verdelen onder andere processen
+						int aantalFramesInRam= 0;
+						for (int i =0 ;i<huidigProces.getPageTable().size();i++) {
+							if (huidigProces.getPageTable().get(i).isPresent()) {
+								aantalFramesInRam++;
+								if(huidigProces.getPageTable().get(i).isModified()) {
+									//wegschrijven frame naar vm
+									Main.log(Level.INFO, "Frame "+huidigProces.getPageTable().get(i).getFrameNr()+" is aangepast en wordt weggeschreven naar page "+ huidigProces.getPageTable().get(i).getPageNr() );
+									huidigProces.schrijfNaarVM(ram.getFrame(huidigProces.getPageTable().get(i).getFrameNr()).getGeheugenPlaatsen(), huidigProces.getPageTable().get(i).getPageNr());
+
+								}
+								
+								
+								vrijgekomenFrames.add(huidigProces.getPageTable().get(i).getFrameNr());
+								ram.getFrame(huidigProces.getPageTable().get(i).getFrameNr()).getGeheugenPlaatsen().clear();
+								ram.getFrame(huidigProces.getPageTable().get(i).getFrameNr()).setBevatPage(false);
+								huidigProces.getPageTable().get(huidigProces.getPageTable().get(i).getPageNr()).setFrameNr(-1);
+								huidigProces.getPageTable().get(huidigProces.getPageTable().get(i).getPageNr()).setPresent(false);
+							}
+						}
+						
+						ram.setAantalProcessenAanwezig(ram.getAantalProcessenAanwezig()-1);
+						ram.getAanwezigeProcessen().remove(huidigProces);
+						
+						verdeelOverProcessen(vrijgekomenFrames);
+						
+						// verdelen van frames naar aanwezige processen
 						break;
 			
 		case "Start":	System.out.println("start");
+						ram.getAanwezigeProcessen().add(huidigProces);
 						aantalProcessenInRam = MemoryController.ram.getAantalProcessenAanwezig();
 
 						// er is reeds een proces aanwezig
@@ -238,6 +285,9 @@ public class Instructie {
 							System.out.println("4 processen reeds aanwezig");
 							// swap 1 proces volledig uit , laadt 1 process volledig in
 							// welk proces???
+							
+								Main.log(Level.SEVERE, "ja lap, 5de proces wil erin rammen");
+							
 							
 						}
 						else if (aantalProcessenInRam ==0) {
@@ -276,6 +326,52 @@ public class Instructie {
 	
 	}
 
+	private void verdeelOverProcessen(List<Integer> vrijgekomenFrames) {
+		
+		RAM ram=MemoryController.ram;
+		
+		int framesPerProces=0;
+		if(ram.getAantalProcessenAanwezig()==1) {
+			framesPerProces= vrijgekomenFrames.size();
+			
+		}
+		if(ram.getAantalProcessenAanwezig()==2) {
+			framesPerProces=vrijgekomenFrames.size()/2;
+		}
+		if(ram.getAantalProcessenAanwezig()==3) {
+			framesPerProces=vrijgekomenFrames.size()/3;
+		}
+		
+		if(ram.getAantalProcessenAanwezig()==0) {
+			Main.log(Level.INFO, "Ram is helemaal leeg, frames hoeven niet verdeeld te worden");
+		}
+		else {
+			int i=0;
+			List<List<Integer>> parts = chopped(vrijgekomenFrames, framesPerProces);
+			
+			for(Proces p: ram.getAanwezigeProcessen()) {
+				
+				List<Integer> vrijgekomenFramesVoorDitProces= parts.get(i);
+				for(int x=0; x<vrijgekomenFramesVoorDitProces.size(); x++) {
+					
+					// copy most recently used but not present page naar frame
+					Page mRUPage= p.mostRUPageNotPresent();
+					ram.getFrame(vrijgekomenFramesVoorDitProces.get(x)).copyPage(mRUPage);
+					p.getPageTable().get(mRUPage.getPageNummer()).setLaatsteKeerGebruikt(MemoryController.klok);
+					p.getPageTable().get(mRUPage.getPageNummer()).setPresent(true);
+					p.getPageTable().get(mRUPage.getPageNummer()).setFrameNr(vrijgekomenFramesVoorDitProces.get(x));
+					
+				}
+				
+				i++;
+			}
+			Main.log(Level.INFO, "Er zijn "+vrijgekomenFrames.size()+" frames vrijgekomen en werden verdeeld onder de aanwezige processen");
+			
+		}
+		
+		
+	}
+
 	/**
 	 * vertaling van decimaal virtueel adres naar pagenummer en offset (decimaal)
 	 * met behulp van binaire conversie
@@ -308,6 +404,18 @@ public class Instructie {
 	}
 	
 	
+	static <T> List<List<T>> chopped(List<T> list, final int L) {
+	    List<List<T>> parts = new ArrayList<List<T>>();
+	    final int N = list.size();
+	    for (int i = 0; i < N; i += L) {
+	        parts.add(new ArrayList<T>(
+	            list.subList(i, Math.min(N, i + L)))
+	        );
+	    }
+	    return parts;
+	}
+	
+	
 
 private void startProces(int aantalProcessenInRam, int aantalPagesAfstaanPerProces, Proces huidigProces) {
 	
@@ -329,8 +437,6 @@ private void startProces(int aantalProcessenInRam, int aantalPagesAfstaanPerProc
 	
 	
 	// frames wegschrijven indien modified
-
-	
 	for(int i= 0; i<lruFramesPerProces.size(); i++) {
 		List<Integer> lruFramesVanProces= lruFramesPerProces.get(i);
 		Proces p= MemoryController.processen.get(lruFramesVanProces.get(0));
@@ -343,8 +449,9 @@ private void startProces(int aantalProcessenInRam, int aantalPagesAfstaanPerProc
 			// als frame is aangepast, schrijf frame naar pagina in vm
 			if(pteProces.isModified()) {
 				Main.log(Level.INFO, "Wegschrijven van aangepast frame "+ lruFramesVanProces.get(j));
+				
 				// frame meegeven en paginanummer
-				p.schrijfNaarVM(MemoryController.ram.getFrame(lruFramesVanProces.get(i)).getGeheugenPlaatsen(), paginanummer);
+				p.schrijfNaarVM(MemoryController.ram.getFrame(lruFramesVanProces.get(j)).getGeheugenPlaatsen(), paginanummer);
 			}
 			else {
 				Main.log(Level.INFO, "Er hoeft niets weggeschreven te worden, page " +pteProces.getPageNr()+ " van proces "+ huidigProces.getPid() +" in frame "+ pteProces.getFrameNr()+" werd niet aangepast");

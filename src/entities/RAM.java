@@ -2,7 +2,9 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 
 import application.Main;
@@ -27,6 +29,8 @@ public class RAM {
 	//toestandsvariabelen van het ram (om eenvoudig te beredeneren)
 	private int aantalProcessenAanwezig; // maximum 4
 	
+	
+	private Set<Proces> aanwezigeProcessen = new HashSet<Proces>();
 	
 	public static int grootte=12;
 	//welke processen aanwezig? de ids bijhouden?
@@ -53,6 +57,12 @@ public class RAM {
 		return frames;
 	}
 
+	
+	public Set<Proces> getAanwezigeProcessen() {
+		return aanwezigeProcessen;
+	}
+	
+	
 	public int getAantalProcessenAanwezig() {
 		return aantalProcessenAanwezig;
 	}

@@ -53,8 +53,8 @@ public class Main extends Application {
 		    try {  
 
 		        // This block configure the logger with handler and formatter  
-		        //fh = new FileHandler("D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Workspace_Besturingssystemen2\\MemoryManagement\\logger.log");  
-		        fh = new FileHandler("C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\logger.log");
+		        fh = new FileHandler("D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Workspace_Besturingssystemen2\\MemoryManagement\\logger.log");  
+		       // fh = new FileHandler("C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\logger.log");
 		        LOGGER.addHandler(fh);
 		        SimpleFormatter formatter = new SimpleFormatter();  
 		        fh.setFormatter(formatter);  

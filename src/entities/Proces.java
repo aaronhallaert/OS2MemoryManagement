@@ -1,6 +1,8 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,6 +113,22 @@ public class Proces {
 	}
 
 
+	public Page mostRUPageNotPresent() {
+		List<PTEntry> pageTableCopyNotPresent= new ArrayList<PTEntry> ();
+		List<PTEntry> pageTableCopy= new ArrayList<PTEntry> (pageTable);
+		Collections.sort(pageTableCopy, new Comparator<PTEntry>() {
+			public int compare(PTEntry pt1, PTEntry pt2) {
+				return Integer.compare(pt2.getLaatsteKeerGebruikt(), pt1.getLaatsteKeerGebruikt());
+			}
+		});	
+		for(PTEntry e: pageTableCopy) {
+			if(!e.isPresent()) {
+				pageTableCopyNotPresent.add(e);
+			}
+		}
+		return this.getPage(pageTableCopyNotPresent.get(0).getPageNr());
+	}
+	
 	public void schrijfNaarVM(Map<Integer, Integer> geheugenPlaatsen, int paginanummer) {
 		this.vm.getPage(paginanummer).setGeheugenPlaatsen(new HashMap<Integer, Integer>(geheugenPlaatsen));
 		

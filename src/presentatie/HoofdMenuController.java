@@ -42,6 +42,9 @@ public class HoofdMenuController {
 	 @FXML 
 	 private Button volgendeInstructie;
 	 
+	 @FXML
+	 private Button alleInstructiesEx;
+	 
 	 //visualisatie van het ram
 	 @FXML
 	 Text procesFrame0;
@@ -112,6 +115,8 @@ public class HoofdMenuController {
 			
 	}
 	
+	
+	
 	public void setFrames() {
 		processFrames.add(procesFrame0);
 		 processFrames.add(procesFrame1);
@@ -130,7 +135,9 @@ public class HoofdMenuController {
 	@FXML
 	public void setButtonVolgendeInstructieUit(ActionEvent e) {
 		// volgende instructie
+		
 		MemoryController.voerVolgendeInstructieUit();
+		if(!MemoryController.instructies.isEmpty()) {
 		updateVisualisatieRam();
 		klok.setText(Integer.toString(MemoryController.klok));
 		for(int i=0; i<MemoryController.processen.size();i++) {
@@ -141,7 +148,33 @@ public class HoofdMenuController {
 		
 		// update logger
 		updateLogTextArea();
+		MemoryController.instructies.removeFirst();
+		}
 		
+	}
+	
+	
+	@FXML
+	public void setButtonAlleInstructies(ActionEvent e) {
+		
+		while(!MemoryController.instructies.isEmpty()) {
+		// volgende instructie
+		MemoryController.voerVolgendeInstructieUit();
+		
+		
+		
+		
+		
+		// update logger
+		//updateLogTextArea();
+		
+		
+		}
+		klok.setText(Integer.toString(MemoryController.klok));
+		for(int j=0; j<MemoryController.processen.size();j++) {
+			MemoryController.processen.get(j).printPageTable();
+		}
+		updateVisualisatieRam();
 		
 		
 	}
@@ -149,8 +182,8 @@ public class HoofdMenuController {
 	private void updateLogTextArea() {
 		try
         {
-            //FileReader reader = new FileReader("D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Workspace_Besturingssystemen2\\MemoryManagement\\logger.log");
-            FileReader reader = new FileReader("C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\logger.log");
+            FileReader reader = new FileReader("D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Workspace_Besturingssystemen2\\MemoryManagement\\logger.log");
+            //FileReader reader = new FileReader("C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\logger.log");
             BufferedReader in = new BufferedReader(reader);
             String line = in.readLine();
             
