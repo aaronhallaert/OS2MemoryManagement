@@ -120,6 +120,7 @@ public class Instructie {
 							// pas waardes aan
 							huidigProces.getPageTable().get(pagenummer).setPresent(true);
 							huidigProces.getPageTable().get(pagenummer).setLaatsteKeerGebruikt(klok);
+							huidigProces.setLaatsteKeerGebruikt(klok);
 							huidigProces.getPageTable().get(pagenummer).setFrameNr(frameNummerWeg);
 							
 							Main.log(Level.INFO, "Page is niet aanwezig in RAM, werd geswapt met frame "+ frameNummerWeg+ "corresponderend met page "+pageNummerWeg +" van proces " + pid+ " (het huidig proces)");
@@ -170,6 +171,7 @@ public class Instructie {
 							//set modified en zet huidige tijd
 							pte.setModified(true);
 							pte.setLaatsteKeerGebruikt(klok);
+							huidigProces.setLaatsteKeerGebruikt(klok);
 							
 						}
 						
@@ -203,7 +205,7 @@ public class Instructie {
 								huidigProces.getPageTable().get(pagenummer).setPresent(true);
 								huidigProces.getPageTable().get(pagenummer).setLaatsteKeerGebruikt(klok);
 								huidigProces.getPageTable().get(pagenummer).setFrameNr(frameNummerWeg);
-								
+								huidigProces.setLaatsteKeerGebruikt(klok);
 							
 							
 							
@@ -301,7 +303,7 @@ public class Instructie {
 									
 									ptEntry.setPresent(true);
 									ptEntry.setLaatsteKeerGebruikt(klok);
-									
+									huidigProces.setLaatsteKeerGebruikt(klok);
 									
 									
 									
@@ -358,6 +360,7 @@ public class Instructie {
 					Page mRUPage= p.mostRUPageNotPresent();
 					ram.getFrame(vrijgekomenFramesVoorDitProces.get(x)).copyPage(mRUPage);
 					p.getPageTable().get(mRUPage.getPageNummer()).setLaatsteKeerGebruikt(MemoryController.klok);
+					p.setLaatsteKeerGebruikt(MemoryController.klok);
 					p.getPageTable().get(mRUPage.getPageNummer()).setPresent(true);
 					p.getPageTable().get(mRUPage.getPageNummer()).setFrameNr(vrijgekomenFramesVoorDitProces.get(x));
 					
@@ -478,7 +481,7 @@ private void startProces(int aantalProcessenInRam, int aantalPagesAfstaanPerProc
 		
 		ptEntry2.setPresent(true);
 		ptEntry2.setLaatsteKeerGebruikt(MemoryController.klok);
-		
+		huidigProces.setLaatsteKeerGebruikt(MemoryController.klok);
 		// laad ide pagina van huidig proces in
 		MemoryController.ram.laadPageIn(huidigProces.getPage(i), lruFrames.get(i));
 	}

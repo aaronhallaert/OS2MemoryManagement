@@ -14,6 +14,7 @@ import java.util.List;
 import com.sun.media.jfxmedia.logging.Logger;
 
 import application.Main;
+import entities.Instructie;
 import entities.Proces;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -148,7 +149,8 @@ public class HoofdMenuController {
 		
 		// update logger
 		updateLogTextArea();
-		MemoryController.instructies.removeFirst();
+		//
+		
 		}
 		
 	}
@@ -156,13 +158,13 @@ public class HoofdMenuController {
 	
 	@FXML
 	public void setButtonAlleInstructies(ActionEvent e) {
-		
-		while(!MemoryController.instructies.isEmpty()) {
+		List<Instructie> instructies= new ArrayList<Instructie> (MemoryController.instructies);
+		while(!instructies.isEmpty()) {
 		// volgende instructie
 		MemoryController.voerVolgendeInstructieUit();
 		
 		
-		
+		instructies.remove(0);
 		
 		
 		// update logger
@@ -176,6 +178,8 @@ public class HoofdMenuController {
 		}
 		updateVisualisatieRam();
 		
+		System.out.println("aantal keer naar VM "+ MemoryController.aantalKeerNaarVM );
+		System.out.println("aantal keer naar Mem "+ MemoryController.aantalKeerNaarMem );
 		
 	}
 

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 
 import application.Main;
@@ -24,7 +25,8 @@ import presentatie.HoofdMenuController;
  *
  */
 public class MemoryController {
-	
+	public static int aantalKeerNaarMem;
+	public static int aantalKeerNaarVM;
 	
 	public static LinkedList<Instructie> instructies=new LinkedList<Instructie>();
 	
@@ -43,7 +45,7 @@ public class MemoryController {
 	 * inlezen van XML file
 	 */
 	public static void instantiate() {
-	String pad="D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Memory Management Opdracht\\virtual memory\\Instructions_20000_20.xml";
+	String pad="D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Memory Management Opdracht\\virtual memory\\Instructions_30_3.xml";
 	//String pad="C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\Instructions_30_3.xml";
 	
 	DataProcessing.findInstructies(pad, instructies, processen);	
@@ -188,7 +190,42 @@ public class MemoryController {
 		return truePages.get(0).getFrameNr();
 	}
 
-	
+	public static void swapLRUProces(Proces proces) {
+		Set<Proces> aanwezigInRamProcessen=ram.getAanwezigeProcessen();
+		int i=Integer.MAX_VALUE;
+		Proces lruProces=null;
+		for(Proces p: aanwezigInRamProcessen) {
+			if (p.getLaatsteKeerGebruikt()<i) {
+				i=p.getLaatsteKeerGebruikt();
+				lruProces=p;
+			}
+		}
+		List<PTEntry> aanwezigEntries=new ArrayList<PTEntry>();
+		for(int a= 0; a<lruProces.getPageTable().size(); a++) {
+			if(lruProces.getPageTable().get(a).isPresent()) {
+				aanwezigEntries.add(lruProces.getPageTable().get(a));
+			}
+		}
+		
+		
+		for(PTEntry e: aanwezigEntries) {
+			int framenummer=e.getFrameNr();
+			int pagenummer= e.getPageNr();
+			
+			if(e.isModified()) {
+				lruProces.schrijfNaarVM(ram.getFrame(framenummer).getGeheugenPlaatsen(), pagenummer);
+			}
+			
+			ram.getFrame(framenummer).setBevatPage(false);
+			ram.getFrame(framenummer).setAanwezigProces(-1);
+			ram.getFrame(framenummer).getGeheugenPlaatsen().clear();
+			
+			ram.getFrame(framenummer).copyPage(proces.getPage(pagenummer));
+			
+		}
+		
+		
+	}
 	
 	}
 

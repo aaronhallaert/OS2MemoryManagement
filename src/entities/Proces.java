@@ -10,12 +10,15 @@ import java.util.logging.Level;
 
 import application.Main;
 import javafx.scene.control.Label;
+import logica.MemoryController;
 
 public class Proces {
 
 	private VirtueelGeheugen vm;
 	private List<PTEntry> pageTable;
 	private int pid;
+	
+	private int laatsteKeerGebruikt;
 	
 	// constructoren
 	
@@ -55,6 +58,18 @@ public class Proces {
 	
 	
 	
+	
+	
+	public int getLaatsteKeerGebruikt() {
+		return laatsteKeerGebruikt;
+	}
+
+
+	public void setLaatsteKeerGebruikt(int laatsteKeerGebruikt) {
+		this.laatsteKeerGebruikt = laatsteKeerGebruikt;
+	}
+
+
 	// getters en setters
 	public List<PTEntry> getPageTable() {
 		return pageTable;
@@ -130,6 +145,7 @@ public class Proces {
 	}
 	
 	public void schrijfNaarVM(Map<Integer, Integer> geheugenPlaatsen, int paginanummer) {
+		MemoryController.aantalKeerNaarVM++;
 		this.vm.getPage(paginanummer).setGeheugenPlaatsen(new HashMap<Integer, Integer>(geheugenPlaatsen));
 		
 	}
