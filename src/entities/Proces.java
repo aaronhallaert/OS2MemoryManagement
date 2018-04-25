@@ -146,6 +146,9 @@ public class Proces {
 	
 	public void schrijfNaarVM(Map<Integer, Integer> geheugenPlaatsen, int paginanummer) {
 		MemoryController.aantalKeerNaarVM++;
+		System.out.println("naar VM "+MemoryController.aantalKeerNaarVM);
+		
+		this.pageTable.get(paginanummer).setModified(false);
 		this.vm.getPage(paginanummer).setGeheugenPlaatsen(new HashMap<Integer, Integer>(geheugenPlaatsen));
 		
 	}

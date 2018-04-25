@@ -23,7 +23,7 @@
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Button>
-            <Button fx:id="alleInstructiesEx" onAction="#setButtonAlleInstructies" mnemonicParsing="false" text="Alle Instructies exec">
+            <Button fx:id="alleInstructiesEx" mnemonicParsing="false" onAction="#setButtonAlleInstructies" text="Alle Instructies exec">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -32,6 +32,24 @@
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="klok :" textAlignment="CENTER" wrappingWidth="47.755859375" />
                   <Text fx:id="klok" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="33.136722564697266" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="write naar RAM:" textAlignment="CENTER" wrappingWidth="95.755859375" />
+                  <Text fx:id="naarRam" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="74.13672256469727" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="write naar VM:" textAlignment="CENTER" wrappingWidth="95.755859375" />
+                  <Text fx:id="naarVM" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="74.13672256469727" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Totaal aantal writes:" textAlignment="CENTER" wrappingWidth="95.755859375" />
+                  <Text fx:id="totaalWrites" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="74.13672256469727" />
                </children>
             </HBox>
          </children>
@@ -128,12 +146,6 @@
                            </children>
                         </VBox>
                      </children></AnchorPane>
-              </content>
-            </ScrollPane>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Virtueel Geheugen" textAlignment="CENTER" wrappingWidth="261.630859375" />
-            <ScrollPane maxHeight="1.7976931348623157E308" prefHeight="500.0" prefWidth="200.0">
-              <content>
-                <AnchorPane maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="0.0" prefHeight="500.0" prefWidth="250.0" />
               </content>
             </ScrollPane>
          </children>

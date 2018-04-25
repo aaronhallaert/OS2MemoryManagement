@@ -82,6 +82,12 @@ public class HoofdMenuController {
 	 //visualisatie van de klok
 	 @FXML
 	 Text klok;
+	 @FXML
+	 Text naarRam;
+	 @FXML
+	 Text naarVM;
+	 @FXML
+	 Text totaalWrites;
 	
 	 public HoofdMenuController() {
 		
@@ -89,10 +95,11 @@ public class HoofdMenuController {
 	 }
 	 
 
-
-	 
-	 
 	
+	 public void initialize() {
+		 
+	 }
+	 List<Instructie> instructies;
 	@FXML
 	public void setButtonLees(ActionEvent e) {
 		
@@ -113,7 +120,7 @@ public class HoofdMenuController {
 			
 			
 		}
-			
+		instructies= new ArrayList<Instructie>(MemoryController.instructies);
 	}
 	
 	
@@ -138,51 +145,65 @@ public class HoofdMenuController {
 		// volgende instructie
 		
 		MemoryController.voerVolgendeInstructieUit();
-		if(!MemoryController.instructies.isEmpty()) {
-		updateVisualisatieRam();
-		klok.setText(Integer.toString(MemoryController.klok));
-		for(int i=0; i<MemoryController.processen.size();i++) {
-			MemoryController.processen.get(i).printPageTable();
+		if(instructies.size()!=0) {
+			updateVisualisatieRam();
+			updateWrites();
+			klok.setText(Integer.toString(MemoryController.klok));
+			for(int i=0; i<MemoryController.processen.size();i++) {
+				MemoryController.processen.get(i).printPageTable();
+				
+			}
+		
+		
+		
+		
+		
+			instructies.remove(0);
 		}
-		
-		
 		
 		// update logger
 		updateLogTextArea();
-		//
 		
-		}
-		
+		console.setScrollTop(Double.MAX_VALUE);
 	}
 	
 	
 	@FXML
 	public void setButtonAlleInstructies(ActionEvent e) {
-		List<Instructie> instructies= new ArrayList<Instructie> (MemoryController.instructies);
-		while(!instructies.isEmpty()) {
+		
+		while(instructies.size()!=0 ) {
 		// volgende instructie
 		MemoryController.voerVolgendeInstructieUit();
 		
 		
-		instructies.remove(0);
-		
 		
 		// update logger
 		//updateLogTextArea();
-		
+		instructies.remove(0);
 		
 		}
+		updateLogTextArea();
+		updateVisualisatieRam();
+		console.setScrollTop(Double.MAX_VALUE);
 		klok.setText(Integer.toString(MemoryController.klok));
 		for(int j=0; j<MemoryController.processen.size();j++) {
 			MemoryController.processen.get(j).printPageTable();
 		}
-		updateVisualisatieRam();
+		
 		
 		System.out.println("aantal keer naar VM "+ MemoryController.aantalKeerNaarVM );
 		System.out.println("aantal keer naar Mem "+ MemoryController.aantalKeerNaarMem );
-		
+		updateWrites();
 	}
 
+	private void updateWrites() {
+		 naarRam.setText(Integer.toString(MemoryController.aantalKeerNaarMem));
+		 naarVM.setText(Integer.toString(MemoryController.aantalKeerNaarVM));
+		 int alleWritesCount=MemoryController.aantalKeerNaarMem+MemoryController.aantalKeerNaarVM;
+		 totaalWrites.setText(Integer.toString(alleWritesCount));
+	}
+	
+	
 	private void updateLogTextArea() {
 		try
         {

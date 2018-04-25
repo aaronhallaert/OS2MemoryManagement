@@ -99,6 +99,7 @@ public class Frame {
 	 */
 	public void copyPage(Page p) {
 		MemoryController.aantalKeerNaarMem++;
+		System.out.println("naar RAM "+MemoryController.aantalKeerNaarMem  );
 		Main.log(Level.INFO, "Page " + p.getPageNummer() +" van proces "+p.getProcessId()+" wordt gekopieerd naar frame "+this.framenummer);
 		this.geheugenPlaatsen= new HashMap<>(p.getGeheugenPlaatsen());
 		this.procesnummer=p.getProcessId();
