@@ -61,6 +61,8 @@ public class Instructie {
 		x.setText("execute: "+this.toString());
 		
 		
+		Label reeelAdresLabel= (Label) Main.getScene().lookup("#reeelAdres");
+		Label virtueelAdresLabel= (Label) Main.getScene().lookup("#virtueelAdres");
 		
 		//HoofdMenuController.getHuidigeInstructieLabel().setText("execute: "+ this.toString());
 		// belangrijk bij opstarten proces
@@ -105,7 +107,9 @@ public class Instructie {
 						offset= adres.get(1);
 						
 						Main.log(Level.INFO,"Lezen van page "+pagenummer+" met offset "+ offset +" door proces "+pid);
-		
+						
+						
+						virtueelAdresLabel.setText("Page "+ pagenummer+ "\nOffset "+ offset);
 						//checken als de pagina die we willen lezen van het huidige proces al aanwezig is in ram
 						if(!huidigProces.getPageTable().get(pagenummer).isPresent()) {
 							
@@ -148,6 +152,10 @@ public class Instructie {
 						framenummer = pte.getFrameNr();
 						f = ram.getFrame(framenummer);
 						
+						
+						
+						reeelAdresLabel.setText("Frame "+framenummer+ "\nOffset "+ offset);
+						
 						//lees op die offset het willekeurig gegenereerd getal
 						int a = f.lees(offset);
 						
@@ -166,6 +174,9 @@ public class Instructie {
 						pagenummer= adres.get(0);
 						offset= adres.get(1);
 						
+						
+						virtueelAdresLabel.setText("Page " +pagenummer+"\nOffset " + offset);
+						
 						Main.log(Level.INFO, "Proces "+ huidigProces.getPid()+ " write naar page "+pagenummer+" met offset "+ offset);
 						
 						if(huidigProces.getPageTable().get(pagenummer).isPresent()) {
@@ -175,6 +186,9 @@ public class Instructie {
 							pte = huidigProces.getPageTable().get(pagenummer);
 							framenummer = pte.getFrameNr();
 							f = ram.getFrame(framenummer);
+							
+							reeelAdresLabel.setText("Frame " +framenummer+"\nOffset " + offset);
+							
 							
 							//schrijf op die offset het willekeurig gegenereerd getal
 							f.schrijf(offset, (int)(Math.random()*50));
@@ -226,6 +240,8 @@ public class Instructie {
 							pte = huidigProces.getPageTable().get(pagenummer);
 							framenummer = pte.getFrameNr();
 							f = ram.getFrame(framenummer);
+							
+							reeelAdresLabel.setText("Frame " +framenummer+"\nOffset " + offset);
 							
 							//schrijf op die offset het willekeurig gegenereerd getal
 							f.schrijf(offset, (int)(Math.random()*50));
