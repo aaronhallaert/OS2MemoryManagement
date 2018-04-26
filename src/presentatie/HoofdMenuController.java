@@ -38,6 +38,10 @@ public class HoofdMenuController {
 	 @FXML
 	 private Button readXML;
 	 
+	 @FXML
+	 public Label huidigeInstructie;
+	 
+	 
 	 @FXML 
 	 private BorderPane borderPane;
 	 @FXML 
@@ -102,7 +106,7 @@ public class HoofdMenuController {
 	 List<Instructie> instructies;
 	@FXML
 	public void setButtonLees(ActionEvent e) {
-		
+		huidigeInstructie.setText("huidige instructie komt hier");
        
 		MemoryController.instantiate();
 		setFrames();
@@ -263,6 +267,12 @@ public class HoofdMenuController {
 		
 		
 	}
+	
+	
+
+
+
+	
 	
 	
 	

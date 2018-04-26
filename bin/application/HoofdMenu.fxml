@@ -158,4 +158,11 @@
             <TextArea fx:id="console" maxHeight="1.7976931348623157E308" prefHeight="500.0" prefWidth="200.0" />
          </children></VBox>
    </center>
+   <top>
+      <HBox prefHeight="79.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="huidigeInstructie" alignment="CENTER" prefHeight="79.0" prefWidth="1000.0" textAlignment="CENTER" />
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

@@ -10,7 +10,9 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import application.Main;
+import javafx.scene.control.Label;
 import logica.MemoryController;
+import presentatie.HoofdMenuController;
 
 public class Instructie {
 	
@@ -52,6 +54,15 @@ public class Instructie {
 	
 	public void execute() {
 		Main.log(Level.INFO, "execute: "+ this.toString());
+		
+		
+		
+		Label x= (Label) Main.getScene().lookup("#huidigeInstructie");
+		x.setText("execute: "+this.toString());
+		
+		
+		
+		//HoofdMenuController.getHuidigeInstructieLabel().setText("execute: "+ this.toString());
 		// belangrijk bij opstarten proces
 		int aantalProcessenInRam;
 		
