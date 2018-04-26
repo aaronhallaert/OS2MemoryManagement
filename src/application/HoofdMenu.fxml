@@ -12,7 +12,8 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="1000.0" prefWidth="160.0" BorderPane.alignment="CENTER">
          <children>
-         		<Button mnemonicParsing="false" onAction="#setButtonLees" prefHeight="25.0" prefWidth="116.0" text="XML inlezen">
+            <ComboBox fx:id="instructieKeuze" prefWidth="150.0" promptText="kies data set" />
+         		<Button fx:id="readXML" mnemonicParsing="false" onAction="#setButtonLees" prefHeight="25.0" prefWidth="116.0" text="XML inlezen">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Button>

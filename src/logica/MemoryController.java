@@ -17,6 +17,7 @@ import entities.Proces;
 import entities.RAM;
 import entities.VirtueelGeheugen;
 import io.DataProcessing;
+import javafx.scene.control.ComboBox;
 import presentatie.HoofdMenuController;
 
 /**
@@ -45,7 +46,32 @@ public class MemoryController {
 	 * inlezen van XML file
 	 */
 	public static void instantiate() {
-	String pad="D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Memory Management Opdracht\\virtual memory\\Instructions_20000_20.xml";
+	ComboBox comboBox= 	(ComboBox) Main.getScene().lookup("#instructieKeuze");
+	String keuze= (String) comboBox.getValue();
+		
+	
+	String pad=" ";
+	if(keuze==null) {
+		pad="D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Memory Management Opdracht\\virtual memory\\Instructions_30_3.xml";
+		//String pad="C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\Instructions_30_3.xml";
+		
+	}
+	else if(keuze.equals("30 i, 3 p")) {
+		pad="D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Memory Management Opdracht\\virtual memory\\Instructions_30_3.xml";		
+		//String pad="C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\Instructions_30_3.xml";
+		
+	}
+	else if(keuze.equals("20000 i, 4 p")) {
+		pad="D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Memory Management Opdracht\\virtual memory\\Instructions_20000_4.xml";			
+		//String pad="C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\Instructions_20000_4.xml";
+		
+	}
+	else if(keuze.equals("20000 i, 20 p")) {
+		pad="D:\\School\\Industriele Ingenieurswetenschappen\\iiw Ba3\\Semester2\\Besturingssystemen 2\\Memory Management Opdracht\\virtual memory\\Instructions_20000_20.xml";			
+		//String pad="C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\Instructions_20000_20.xml";
+		
+	}
+	
 	//String pad="C:\\Users\\tibo\\Documents\\OS2MemoryManagement\\Instructions_30_3.xml";
 	
 	DataProcessing.findInstructies(pad, instructies, processen);	

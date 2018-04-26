@@ -23,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
@@ -79,6 +80,8 @@ public class HoofdMenuController {
 	 @FXML
 	 private TextArea console;
 	 
+	 @FXML 
+	 private ComboBox instructieKeuze;
 	 
 	 @FXML
 	 Accordion pageTables;
@@ -98,10 +101,10 @@ public class HoofdMenuController {
 		
 	 }
 	 
-
+	 
 	
 	 public void initialize() {
-		 
+		 instructieKeuze.getItems().addAll("30 i, 3 p","20000 i, 4 p","20000 i, 20 p");
 	 }
 	 List<Instructie> instructies;
 	@FXML
@@ -125,6 +128,8 @@ public class HoofdMenuController {
 			
 		}
 		instructies= new ArrayList<Instructie>(MemoryController.instructies);
+		
+		readXML.setDisable(true);
 	}
 	
 	

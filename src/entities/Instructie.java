@@ -154,7 +154,7 @@ public class Instructie {
 						
 						
 						
-						reeelAdresLabel.setText("Frame "+framenummer+ "\nOffset "+ offset);
+						reeelAdresLabel.setText("Frame "+framenummer+ "\nOffset "+ offset+"\n"+frameEnOffsetNaarAdres(framenummer, offset));
 						
 						//lees op die offset het willekeurig gegenereerd getal
 						int a = f.lees(offset);
@@ -187,7 +187,7 @@ public class Instructie {
 							framenummer = pte.getFrameNr();
 							f = ram.getFrame(framenummer);
 							
-							reeelAdresLabel.setText("Frame " +framenummer+"\nOffset " + offset);
+							reeelAdresLabel.setText("Frame "+framenummer+ "\nOffset "+ offset+"\n"+frameEnOffsetNaarAdres(framenummer, offset));
 							
 							
 							//schrijf op die offset het willekeurig gegenereerd getal
@@ -241,7 +241,7 @@ public class Instructie {
 							framenummer = pte.getFrameNr();
 							f = ram.getFrame(framenummer);
 							
-							reeelAdresLabel.setText("Frame " +framenummer+"\nOffset " + offset);
+							reeelAdresLabel.setText("Frame "+framenummer+ "\nOffset "+ offset+"\n"+frameEnOffsetNaarAdres(framenummer, offset));
 							
 							//schrijf op die offset het willekeurig gegenereerd getal
 							f.schrijf(offset, (int)(Math.random()*50));
@@ -521,6 +521,13 @@ private void startProces(int aantalProcessenInRam, int aantalPagesAfstaanPerProc
 	MemoryController.ram.setAantalProcessenAanwezig((aantalProcessenInRam+1));
 	
 	
+}
+
+
+public int frameEnOffsetNaarAdres(int framenummer, int offset) {
+	int adres= framenummer*4096+offset;
+	
+	return adres;
 }
 	
 	
