@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import application.Main;
 import entities.Instructie;
 import entities.PTEntry;
+import entities.Page;
 import entities.Proces;
 import entities.RAM;
 import entities.VirtueelGeheugen;
@@ -186,6 +187,100 @@ public class MemoryController {
 		return lruFramesPerProces;
 	}
 
+	/**
+	 * verdelen van vrijgekomen frames over processen in ram
+	 * @param vrijgekomenFrames
+	 */
+	public static void verdeelOverProcessen(List<Integer> vrijgekomenFrames) {
+		
+		RAM ram=MemoryController.ram;
+		
+		int framesPerProces=0;
+		if(ram.getAantalProcessenAanwezig()==1) {
+			framesPerProces= vrijgekomenFrames.size();
+			
+		}
+		if(ram.getAantalProcessenAanwezig()==2) {
+			framesPerProces=vrijgekomenFrames.size()/2;
+		}
+		if(ram.getAantalProcessenAanwezig()==3) {
+			framesPerProces=vrijgekomenFrames.size()/3;
+		}
+		
+		if(ram.getAantalProcessenAanwezig()==0) {
+			Main.log(Level.INFO, "Ram is helemaal leeg, frames hoeven niet verdeeld te worden");
+		}
+		else {
+			int i=0;
+			List<List<Integer>> parts = chopped(vrijgekomenFrames, framesPerProces);
+			
+			for(Proces p: ram.getAanwezigeProcessen()) {
+				
+				List<Integer> vrijgekomenFramesVoorDitProces= parts.get(i);
+				for(int x=0; x<vrijgekomenFramesVoorDitProces.size(); x++) {
+					
+					// copy most recently used but not present page naar frame
+					Page mRUPage= p.mostRUPageNotPresent();
+					ram.getFrame(vrijgekomenFramesVoorDitProces.get(x)).copyPage(mRUPage);
+					p.getPageTable().get(mRUPage.getPageNummer()).setLaatsteKeerGebruikt(MemoryController.klok);
+					p.setLaatsteKeerGebruikt(MemoryController.klok);
+					p.getPageTable().get(mRUPage.getPageNummer()).setPresent(true);
+					p.getPageTable().get(mRUPage.getPageNummer()).setFrameNr(vrijgekomenFramesVoorDitProces.get(x));
+					
+				}
+				
+				i++;
+			}
+			Main.log(Level.INFO, "Er zijn "+vrijgekomenFrames.size()+" frames vrijgekomen en werden verdeeld onder de aanwezige processen");
+			
+		}
+		
+		
+	}
+
+
+	static <T> List<List<T>> chopped(List<T> list, final int L) {
+    List<List<T>> parts = new ArrayList<List<T>>();
+    final int N = list.size();
+    for (int i = 0; i < N; i += L) {
+        parts.add(new ArrayList<T>(
+            list.subList(i, Math.min(N, i + L)))
+        );
+    }
+    return parts;
+}
+
+	
+	/**
+	 * vertaling van decimaal virtueel adres naar pagenummer en offset (decimaal)
+	 * met behulp van binaire conversie
+	 * 
+	 * @return List met pagenummer (0) en offset (1) decimaal
+	 */
+	public static List<Integer> splitsDecimaalAdresOp(int virtueelAdres) {
+		// virtueel adres omzetten in een paginanummer + offset in de pagina
+		String binair = Integer.toBinaryString(virtueelAdres);
+		
+		//nullen bijzetten tot we 12 characters hebben
+		StringBuilder sb = new StringBuilder();
+		for(int i=0 ; i< (16-binair.length()); i++) {
+			sb.append("0");
+		}
+		sb.append(binair);
+		binair = sb.toString();
+		/*
+		System.out.println("binair final =" + binair);
+		System.out.println(binair.substring(0,4));
+		System.out.println(binair.substring(4));
+		*/
+		
+		List<Integer> list= new ArrayList<Integer>();
+		list.add(Integer.parseInt(binair.substring(0, 4), 2));
+		list.add(Integer.parseInt(binair.substring(4),2));
+		
+		return list;
+		
+	}
 	
 
 	public static int getLRUFrameVanProces(int pid) {
