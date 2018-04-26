@@ -255,7 +255,8 @@ public class Instructie {
 						break;
 			
 		case "Terminate":System.out.println("terminate");
-						
+		reeelAdresLabel.setText("");	
+		virtueelAdresLabel.setText("");	
 		if(!MemoryController.ram.getAanwezigeProcessen().contains(huidigProces)) {
 			Main.log(Level.SEVERE, "ja lap, terminate en proces zit niet in ram");
 		}
@@ -291,6 +292,8 @@ public class Instructie {
 						break;
 			
 		case "Start":	System.out.println("start");
+		reeelAdresLabel.setText("");	
+		virtueelAdresLabel.setText("");	
 						ram.getAanwezigeProcessen().add(huidigProces);
 						aantalProcessenInRam = MemoryController.ram.getAantalProcessenAanwezig();
 
