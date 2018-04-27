@@ -100,7 +100,7 @@ public class Instructie {
 							MemoryController.swapLRUProces(huidigProces);
 						}
 						else {
-						MemoryController.readMethod(adres, pagenummer, offset, huidigProces, pid, virtueelAdres, virtueelAdresLabel, pte, framenummer, f, virtueelAdresLabel);
+						MemoryController.readMethod(adres, pagenummer, offset, huidigProces, pid, virtueelAdres, virtueelAdresLabel, pte, framenummer, f, reeelAdresLabel);
 						}
 
 						break;

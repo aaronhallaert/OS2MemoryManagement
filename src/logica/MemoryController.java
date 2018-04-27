@@ -622,7 +622,7 @@ public class MemoryController {
 	 * @param reeelAdresLabel: Gui label met reeel adres
 	 */
 	public static void readMethod(List<Integer> adres, int pagenummer, int offset, Proces huidigProces, int pid, int virtueelAdres, 
-			Label virtueelAdresLabel, PTEntry pte, int framenummer, Frame f, Labeled reeelAdresLabel) {
+			Label virtueelAdresLabel, PTEntry pte, int framenummer, Frame f, Label reeelAdresLabel) {
 		
 				adres = splitsDecimaalAdresOp(virtueelAdres);
 				
