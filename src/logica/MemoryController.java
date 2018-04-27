@@ -682,8 +682,9 @@ public class MemoryController {
 				
 				//lees op die offset het willekeurig gegenereerd getal
 				int a = f.lees(offset);
+				huidigProces.getPageTable().get(pagenummer).setLaatsteKeerGebruikt(klok);
+				huidigProces.setLaatsteKeerGebruikt(klok);
 				
-				huidigProces.getPageTable().get(pagenummer).setModified(true);
 		
 	}
 
