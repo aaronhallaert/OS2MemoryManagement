@@ -54,12 +54,12 @@ public class Instructie {
 	}
 	
 	public void execute() {
-		Main.log(Level.INFO, "execute: "+ this.toString());
+		Main.log(Level.INFO, "executed: "+ this.toString());
 		
 		
 		
 		Label x= (Label) Main.getScene().lookup("#huidigeInstructie");
-		x.setText("execute: "+this.toString());
+		x.setText("executed: "+this.toString());
 		
 		
 		Label reeelAdresLabel= (Label) Main.getScene().lookup("#reeelAdres");
@@ -164,7 +164,7 @@ public class Instructie {
 						break;
 			
 						default :
-						Main.log(Level.SEVERE, "execute: "+ this.toString()+ " bevat geen operatie");
+						Main.log(Level.SEVERE, "executed: "+ this.toString()+ " bevat geen operatie");
 						break;
 	}
 	
